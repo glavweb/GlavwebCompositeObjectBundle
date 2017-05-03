@@ -1,0 +1,15 @@
+list:
+    label__sort: Position
+    label__action: Action
+
+dashboard:
+    link_object_instance_list: Objects
+
+breadcrumb:
+    link_object_instance_list: Objects
+    link_object_instance_create: Create
+    link_object_instance_edit: Edit
+
+tab:
+    label_common: Common
+    label_recipients: Recipients

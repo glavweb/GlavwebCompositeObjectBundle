@@ -1,0 +1,14 @@
+list:
+    label__action: Action
+    label_email: E-mail
+
+form:
+    label_email: E-mail
+
+dashboard:
+    link_notification_recipient_list: Recipients
+
+breadcrumb:
+    link_notification_recipient_list: Recipients
+    link_notification_recipient_create: Create
+    link_notification_recipient_edit: Edit

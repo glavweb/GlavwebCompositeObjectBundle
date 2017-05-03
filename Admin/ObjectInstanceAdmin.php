@@ -63,11 +63,13 @@ class ObjectInstanceAdmin extends AbstractAdmin
             return;
         }
 
-        // @todo Только если возможны получатели
-        $router = $this->getConfigurationPool()->getContainer()->get('router');
-        $menu->addChild('Получатели', [
-            'uri' => $router->generate('notification_recipient_list', array('class' => $this->getObjectClassName()))
-        ]);
+        if ($this->getObjectClass()->getNotificationEnabled()) {
+            $router = $this->getConfigurationPool()->getContainer()->get('router');
+            $menu->addChild('recipients', [
+                'uri' => $router->generate('notification_recipient_list', array('class' => $this->getObjectClassName())),
+                'label' => $this->trans('tab.label_recipients')
+            ]);
+        }
     }
 
     /**
@@ -172,7 +174,7 @@ class ObjectInstanceAdmin extends AbstractAdmin
 
         $formMapper
             ->tab('Common')
-                ->with('Common', ['class' => 'col-md-8', 'name' => 'Общее'])->end()
+                ->with('Common', ['class' => 'col-md-8', 'name' => $this->trans('tab.label_common')])->end()
             ->end()
         ;
 

@@ -10,4 +10,6 @@ breadcrumb:
     link_object_instance_create: Создание
     link_object_instance_edit: Редактирование
 
-Common: Общее
+tab:
+    label_common: Общее
+    label_recipients: Получатели
