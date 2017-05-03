@@ -27,7 +27,16 @@ public function registerBundles()
 ```
 ### Configure the bundle
 
-This bundle was designed to just work out of the box. The only thing you have to enable the dynamic routes, add the following to your routing configuration file. 
+Add DBAL type to Doctrine:
+
+```yaml
+doctrine:
+    dbal:
+        types:
+            CompositeObjectFieldType: Glavweb\CompositeObjectBundle\DBAL\Types\Object\CompositeObjectFieldType
+```
+
+To enable the dynamic routes, add the following to your routing configuration file:
 
 ```yaml
 #  app/config/routing.yml
