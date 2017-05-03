@@ -1,0 +1,8 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% set field = field_description.options.field %}
+{% set value = admin.getValueByInstanceField(object, field) %}
+
+{% block field %}
+    {{ admin.getValueData(value) }}
+{% endblock %}

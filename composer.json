@@ -1,0 +1,28 @@
+{
+    "name": "glavweb/composite-object-bundle",
+    "description": "Symfony GlavwebCompositeObjectBundle.",
+    "authors": [
+        {
+            "name": "Andrey Nilov",
+            "email": "nilov@glavweb.ru",
+            "homepage": "http://glavweb.ru"
+        },
+        {
+            "name": "Glavweb Community",
+            "homepage": "https://github.com/glavweb/GlavwebCompositeObjectBundle/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "symfony/framework-bundle": "~2.3|~3.0",
+        "symfony/form": "~2.3|~3.0",
+        "doctrine/orm": "^2.5",
+        "doctrine/doctrine-bundle": "^1.6",
+        "sonata-project/admin-bundle": "^3.1",
+        "sonata-project/block-bundle": "^3.2",
+        "glavweb/cms-core-bundle": "~0.1"
+    },
+    "autoload": {
+        "psr-4": { "Glavweb\\CompositeObjectBundle\\": "" }
+    }
+}

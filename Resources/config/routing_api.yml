@@ -1,0 +1,20 @@
+_cms_fixture_api:
+    type:     annotation
+    resource: "@GlavwebCompositeObjectBundle/Controller/Api/FixtureApiController.php"
+
+_cms_composite_object_object_api:
+    type:     annotation
+    resource: "@GlavwebCompositeObjectBundle/Controller/Api/ObjectApiController.php"
+
+
+#cms_composite_object_object_class_api:
+#    type:     annotation
+#    resource: "@GlavwebCompositeObjectBundle/Controller/Api/Object/ObjectClassApiController.php"
+#
+#cms_composite_object_object_instance_api:
+#    type:     annotation
+#    resource: "@GlavwebCompositeObjectBundle/Controller/Api/Object/ObjectInstanceApiController.php"
+#
+#cms_composite_object_field_api:
+#    type:     annotation
+#    resource: "@GlavwebCompositeObjectBundle/Controller/Api/Object/FieldApiController.php"

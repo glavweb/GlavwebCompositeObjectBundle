@@ -1,0 +1,15 @@
+list:
+    label__action: Действия
+    label_email: E-mail
+
+form:
+    label_email: E-mail
+
+dashboard:
+    label_option: Получатели
+    link_notification_recipient_list: Получатели
+
+breadcrumb:
+    link_notification_recipient_list: Получатели
+    link_notification_recipient_create: Создание
+    link_notification_recipient_edit: Редактирование

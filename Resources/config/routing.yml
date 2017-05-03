@@ -1,0 +1,3 @@
+_cms_composite_object_bundle_api:
+    prefix: /api
+    resource: "@GlavwebCompositeObjectBundle/Resources/config/routing_api.yml"

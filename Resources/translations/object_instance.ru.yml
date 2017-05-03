@@ -1,0 +1,13 @@
+list:
+    label__sort: Позиция
+    label__action: Действие
+
+dashboard:
+    link_object_instance_list: Объекты
+
+breadcrumb:
+    link_object_instance_list: Объекты
+    link_object_instance_create: Создание
+    link_object_instance_edit: Редактирование
+
+Common: Общее

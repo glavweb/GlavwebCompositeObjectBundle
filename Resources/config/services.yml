@@ -1,0 +1,124 @@
+services:
+    # Twig Extension
+    cms_composite_object_twig_extension:
+        class: Glavweb\CompositeObjectBundle\Twig\CmsCompositeObjectExtension
+        arguments: ["@glavweb_cms_composite_object.field_provider_registry", "@glavweb_cms_composite_object.object_manager"]
+        tags:
+            - { name: twig.extension }
+
+    glavweb_cms_composite_object.fixture_creator:
+        class: Glavweb\CompositeObjectBundle\Service\FixtureCreator
+        arguments: [ "@doctrine", "@glavweb_mongodb", "@glavweb_cms_composite_object.object_manipulator", "@glavweb_cms_composite_object.field_provider_registry" ]
+
+    glavweb_cms_composite_object.object_manipulator:
+        class: Glavweb\CompositeObjectBundle\Service\ObjectManipulator
+        arguments: [ "@doctrine", "@glavweb_mongodb","@glavweb_cms_composite_object.field_provider_registry" , "@glavweb_cms_composite_object.api_data_manager"]
+
+    glavweb_cms_composite_object.field_provider_registry:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\FieldProviderRegistry
+
+    #    
+    # Providers
+    #    
+    glavweb_cms_composite_object.string_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\StringFieldProvider
+        arguments: [ "@form.factory" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: string}
+            
+    glavweb_cms_composite_object.text_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\TextFieldProvider
+        arguments: [ "@form.factory" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: text}
+            
+    glavweb_cms_composite_object.integer_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\IntegerFieldProvider
+        arguments: [ "@form.factory" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: integer}
+            
+    glavweb_cms_composite_object.boolean_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\BooleanFieldProvider
+        arguments: [ "@form.factory" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: boolean}
+            
+    glavweb_cms_composite_object.image_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\ImageFieldProvider
+        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: image}
+            
+    glavweb_cms_composite_object.image_collection_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\ImageCollectionFieldProvider
+        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: image_collection}
+            
+    glavweb_cms_composite_object.video_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\VideoFieldProvider
+        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: video}
+            
+    glavweb_cms_composite_object.video_collection_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\VideoCollectionFieldProvider
+        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: video_collection}
+            
+    glavweb_cms_composite_object.object_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\ObjectFieldProvider
+        arguments: [ "@form.factory", "@doctrine", "@glavweb_cms_composite_object.field_provider_registry" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: object}
+            
+    glavweb_cms_composite_object.object_collection_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\ObjectCollectionFieldProvider
+        arguments: [ "@form.factory", "@doctrine", "@glavweb_cms_composite_object.field_provider_registry" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: object_collection}
+
+    glavweb_cms_composite_object.link_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\LinkFieldProvider
+        arguments: [ "@form.factory", "@doctrine", "@glavweb_cms_composite_object.field_provider_registry" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: link}
+
+    glavweb_cms_composite_object.api_data_manager:
+        class: Glavweb\CompositeObjectBundle\Service\ApiDataManager
+        arguments: [ "@doctrine", "@glavweb_cms_composite_object.field_provider_registry" ]
+
+    #
+    # Admin Block
+    #
+    glavweb_cms_composite_object.block.admin_list:
+        class: Glavweb\CompositeObjectBundle\Block\AdminListBlockService
+        arguments: [ "glavweb_cms_composite_object.block.admin_list", "@templating", "@glavweb_cms_composite_object.object_manager" ]
+        tags:
+            - { name: sonata.block }
+
+    # Manager
+    glavweb_cms_composite_object.object_manager:
+        class: Glavweb\CompositeObjectBundle\Manager\ObjectManager
+        arguments: ["@doctrine", "@glavweb_cms_composite_object.field_provider_registry"]
+
+    # Normalizer
+    glavweb_cms_composite_object.bson_document_normalizer:
+        class: Glavweb\CompositeObjectBundle\Normalizer\BSONDocumentNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
+    # Event Listener
+    glavweb_cms_composite_object.menu_builder_listener:
+        class: Glavweb\CompositeObjectBundle\EventListener\MenuBuilderListener
+        arguments: ["@request_stack", "@glavweb_cms_composite_object.object_manager"]
+        tags:
+            - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar, method: addMenuItems }
+
+    glavweb_cms_composite_object.object_instance_listener:
+        class: Glavweb\CompositeObjectBundle\EventListener\ObjectInstanceListener
+        arguments: ["@glavweb_cms_composite_object.object_manager", "@glavweb_cms_composite_object.api_data_manager", "@glavweb_mongodb"]
+        tags:
+            - { name: doctrine.orm.entity_listener }
