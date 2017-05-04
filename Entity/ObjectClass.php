@@ -96,6 +96,20 @@ class ObjectClass
     private $notificationEnabled = false;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="captcha_enabled", type="boolean", nullable=true, options={"comment": "Captcha enabled?"})
+     */
+    private $captchaEnabled = false;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="captcha_options", type="array", nullable=true, options={"comment": "Captcha options"})
+     */
+    private $captchaOptions = [];
+
+    /**
      * @var array
      *
      * @ORM\Column(name="api_methods", type="array", nullable=false, options={"comment": "Доступные методы в API"})
@@ -303,6 +317,64 @@ class ObjectClass
     public function getNotificationEnabled()
     {
         return $this->notificationEnabled;
+    }
+
+    /**
+     * Set captchaEnabled
+     *
+     * @param boolean $captchaEnabled
+     *
+     * @return ObjectClass
+     */
+    public function setCaptchaEnabled($captchaEnabled)
+    {
+        $this->captchaEnabled = $captchaEnabled;
+
+        return $this;
+    }
+
+    /**
+     * Get captchaEnabled
+     *
+     * @return boolean
+     */
+    public function getCaptchaEnabled()
+    {
+        return $this->captchaEnabled;
+    }
+
+    /**
+     * Is captchaEnabled
+     *
+     * @return boolean
+     */
+    public function isCaptchaEnabled()
+    {
+        return $this->getCaptchaEnabled();
+    }
+
+    /**
+     * Set captchaOptions
+     *
+     * @param array $captchaOptions
+     *
+     * @return ObjectClass
+     */
+    public function setCaptchaOptions($captchaOptions)
+    {
+        $this->captchaOptions = $captchaOptions;
+
+        return $this;
+    }
+
+    /**
+     * Get captchaOptions
+     *
+     * @return array
+     */
+    public function getCaptchaOptions()
+    {
+        return $this->captchaOptions;
     }
 
     /**

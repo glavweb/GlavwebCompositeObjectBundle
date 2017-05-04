@@ -144,6 +144,14 @@ class FixtureCreator
             $class->setNotificationEnabled((bool)$classData['notification']['enabled']);
         }
 
+        if (isset($classData['captcha']['enabled'])) {
+            $class->setCaptchaEnabled((bool)$classData['captcha']['enabled']);
+        }
+
+        if (isset($classData['captcha']['options'])) {
+            $class->setCaptchaOptions((array)$classData['captcha']['options']);
+        }
+
         if (isset($classData['api_methods'])) {
             $class->setApiMethods($classData['api_methods']);
         }

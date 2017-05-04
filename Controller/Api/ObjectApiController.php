@@ -18,6 +18,9 @@ use Glavweb\CompositeObjectBundle\Entity\Value\AbstractValue;
 use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -28,6 +31,8 @@ use Glavweb\RestBundle\Controller\GlavwebRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Glavweb\CompositeObjectBundle\Entity\ObjectInstance;
 use Symfony\Component\HttpFoundation\Response;
+use Glavweb\CaptchaBundle\Validator\Constraints\IsTrue as CaptchaIsTrue;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Class ObjectApiController
@@ -334,8 +339,10 @@ class ObjectApiController extends GlavwebRestController
      */
     private function createObjectForm(ObjectClass $class)
     {
+        /** @var FormBuilder $formBuilder */
         $formBuilder = $this->get('form.factory')->createNamedBuilder('', FormType::class, [], [
-            'csrf_protection' => false
+            'csrf_protection' => false,
+
         ]);
 
         foreach ($class->getFields() as $field) {
@@ -344,6 +351,23 @@ class ObjectApiController extends GlavwebRestController
             $formBuilder->add($fieldProvider->createFormBuilder($field, null, [
                 'mapped' => false,
             ]));
+        }
+
+        if ($class->getCaptchaEnabled()) {
+            $formBuilder->add('captcha_phrase', TextType::class, array(
+                'label'       => false,
+                'mapped'      => false,
+                'constraints' => [
+                    new CaptchaIsTrue()
+                ]
+            ));
+            $formBuilder->add('captcha_token', HiddenType::class, array(
+                'label'       => false,
+                'mapped'      => false,
+                'constraints' => [
+                    new NotBlank()
+                ]
+            ));
         }
 
         $form = $formBuilder->getForm();
@@ -376,8 +400,13 @@ class ObjectApiController extends GlavwebRestController
      * @param FormInterface $form
      * @return array
      */
-    private function getFormData(FormInterface $form)
+    private function getFormData(FormInterface $form, $withoutSystemFields = true)
     {
+        $systemFields = [
+            'captcha_token',
+            'captcha_phrase'
+        ];
+
         $data = [];
 
         /** @var FormInterface[] $elements */
@@ -385,6 +414,10 @@ class ObjectApiController extends GlavwebRestController
         foreach ($elements as $element) {
             $fieldName = $element->getName();
             $valueData = $element->getData();
+
+            if ($withoutSystemFields && in_array($fieldName, $systemFields)) {
+                continue;
+            }
 
             $data[$fieldName] = $valueData;
         }
