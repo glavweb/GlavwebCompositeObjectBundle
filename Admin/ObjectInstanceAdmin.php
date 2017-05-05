@@ -11,8 +11,8 @@
 
 namespace Glavweb\CompositeObjectBundle\Admin;
 
+use Doctrine\Common\Collections\Collection;
 use Glavweb\CompositeObjectBundle\Entity\Field;
-use Glavweb\CompositeObjectBundle\Entity\ObjectClass;
 use Glavweb\CompositeObjectBundle\Entity\ObjectInstance;
 use Glavweb\CompositeObjectBundle\Entity\Value\AbstractValue;
 use Glavweb\CompositeObjectBundle\Entity\Value\ValueBoolean;
@@ -231,6 +231,27 @@ class ObjectInstanceAdmin extends AbstractAdmin
         $fieldProvider = $this->getFieldProvider($value->getField());
 
         return $fieldProvider->getValueData($value);
+    }
+
+    /**
+     * @param AbstractValue $value
+     * @return mixed
+     */
+    public function toStringValueData(AbstractValue $value)
+    {
+        $valueData = $this->getValueData($value);
+
+        if ($valueData instanceof Collection) {
+            $valueData = $valueData->toArray();
+        }
+
+        if (is_array($valueData)) {
+            return implode(', ', array_map(function ($item) {
+                return (string)$item;
+            }, $valueData));
+        }
+
+        return (string)$valueData;
     }
 
     /**
