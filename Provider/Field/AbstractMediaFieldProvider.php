@@ -46,18 +46,25 @@ abstract class AbstractMediaFieldProvider extends AbstractFieldProvider
     protected $thumbnailImagineFilter = null;
 
     /**
+     * @var array
+     */
+    protected $imagineFilterSets;
+
+    /**
      * AbstractMediaFieldProvider constructor.
      *
      * @param FormFactory $formFactory
      * @param Router $router
      * @param UploaderManager $uploaderManager
+     * @param array $imagineFilterSets
      */
-    public function __construct(FormFactory $formFactory, Router $router, UploaderManager $uploaderManager)
+    public function __construct(FormFactory $formFactory, Router $router, UploaderManager $uploaderManager, array $imagineFilterSets = [])
     {
         parent::__construct($formFactory);
 
         $this->router = $router;
         $this->uploaderManager = $uploaderManager;
+        $this->imagineFilterSets = $imagineFilterSets;
     }
 
     /**
@@ -114,10 +121,19 @@ abstract class AbstractMediaFieldProvider extends AbstractFieldProvider
     }
 
     /**
+     * @param Field $field
      * @return string
      */
-    public function getThumbnailImagineFilter()
+    public function getThumbnailImagineFilter(Field $field)
     {
+        $className  = $field->getClass()->getName();
+        $fieldName  = $field->getName();
+        $filterName = sprintf('object_%s_%s', $className, $fieldName);
+
+        if (isset($this->imagineFilterSets[$filterName])) {
+            return $filterName;
+        }
+
         return $this->thumbnailImagineFilter;
     }
 
@@ -137,7 +153,7 @@ abstract class AbstractMediaFieldProvider extends AbstractFieldProvider
     {
         return [
             'context'          => $this->getContext(),
-            'thumbnail_filter' => $this->getThumbnailImagineFilter()
+            'thumbnail_filter' => $this->getThumbnailImagineFilter($field)
         ];
     }
 }

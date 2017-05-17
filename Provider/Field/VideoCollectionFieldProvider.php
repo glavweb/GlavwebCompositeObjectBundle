@@ -61,10 +61,11 @@ class VideoCollectionFieldProvider extends AbstractMediaFieldProvider
      * @param Router $router
      * @param UploaderManager $uploaderManager
      * @param MediaStructure $mediaStructure
+     * @param array $imagineFilterSets
      */
-    public function __construct(FormFactory $formFactory, Router $router, UploaderManager $uploaderManager, MediaStructure $mediaStructure)
+    public function __construct(FormFactory $formFactory, Router $router, UploaderManager $uploaderManager, MediaStructure $mediaStructure, array $imagineFilterSets = [])
     {
-        parent::__construct($formFactory, $router, $uploaderManager);
+        parent::__construct($formFactory, $router, $uploaderManager, $imagineFilterSets);
 
         $this->mediaStructure = $mediaStructure;
     }

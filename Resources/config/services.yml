@@ -46,25 +46,25 @@ services:
             
     glavweb_cms_composite_object.image_field_provider:
         class: Glavweb\CompositeObjectBundle\Provider\Field\ImageFieldProvider
-        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure" ]
+        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure", "%liip_imagine.filter_sets%" ]
         tags:
             - {name: glavweb_cms_composite_object.field_provider, field_type: image}
             
     glavweb_cms_composite_object.image_collection_field_provider:
         class: Glavweb\CompositeObjectBundle\Provider\Field\ImageCollectionFieldProvider
-        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure" ]
+        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure", "%liip_imagine.filter_sets%" ]
         tags:
             - {name: glavweb_cms_composite_object.field_provider, field_type: image_collection}
             
     glavweb_cms_composite_object.video_field_provider:
         class: Glavweb\CompositeObjectBundle\Provider\Field\VideoFieldProvider
-        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure" ]
+        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure", "%liip_imagine.filter_sets%" ]
         tags:
             - {name: glavweb_cms_composite_object.field_provider, field_type: video}
             
     glavweb_cms_composite_object.video_collection_field_provider:
         class: Glavweb\CompositeObjectBundle\Provider\Field\VideoCollectionFieldProvider
-        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure" ]
+        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure", "%liip_imagine.filter_sets%" ]
         tags:
             - {name: glavweb_cms_composite_object.field_provider, field_type: video_collection}
             

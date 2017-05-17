@@ -61,10 +61,11 @@ class ImageCollectionFieldProvider extends AbstractMediaFieldProvider
      * @param Router $router
      * @param UploaderManager $uploaderManager
      * @param MediaStructure $mediaStructure
+     * @param array $imagineFilterSets
      */
-    public function __construct(FormFactory $formFactory, Router $router, UploaderManager $uploaderManager, MediaStructure $mediaStructure)
+    public function __construct(FormFactory $formFactory, Router $router, UploaderManager $uploaderManager, MediaStructure $mediaStructure, array $imagineFilterSets = [])
     {
-        parent::__construct($formFactory, $router, $uploaderManager);
+        parent::__construct($formFactory, $router, $uploaderManager, $imagineFilterSets);
 
         $this->mediaStructure = $mediaStructure;
     }
@@ -178,7 +179,7 @@ class ImageCollectionFieldProvider extends AbstractMediaFieldProvider
     public function getApiData(AbstractValue $value, ApiDataManager $apiDataManager)
     {
         $mediaStructure = $this->mediaStructure;
-        $thumbnailImagineFilter = $this->getThumbnailImagineFilter();
+        $thumbnailImagineFilter = $this->getThumbnailImagineFilter($value->getField());
 
         /** @var ArrayCollection $medias */
         $medias   = $this->getValueData($value);
