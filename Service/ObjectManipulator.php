@@ -91,10 +91,9 @@ class ObjectManipulator
             $this->updateValue($value, $valueData);
         }
 
-        $this->saveInMongoDB($objectInstance);
-
         $em->flush();
 
+        $this->saveInMongoDB($objectInstance);
         $this->updateLinkedValuesInMongoDB($objectInstance);
     }
 
