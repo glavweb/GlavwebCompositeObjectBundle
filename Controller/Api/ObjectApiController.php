@@ -77,6 +77,11 @@ class ObjectApiController extends GlavwebRestController
         $sort       = (array)json_decode($paramFetcher->get('sort'), true);
         $filter     = (array)json_decode($paramFetcher->get('filter'), true);
 
+        // default sort
+        if (!isset($sort['_position'])) {
+            $sort['_position'] = 1;
+        }
+
         $className = $class->getName();
 
         if (!$class) {
@@ -90,7 +95,7 @@ class ObjectApiController extends GlavwebRestController
         $collection = $mongodb->getDatabase()->$className;
 
         $data = $collection->find($filter, [
-            'projection' => array_merge($projection, ['_id' => 0]), // hide mongodb ID
+            'projection' => array_merge($projection, ['_id' => 0, '_position' => 0]), // hide mongodb ID
             'sort'       => $sort,
             'limit'      => $limit,
             'skip'       => $skip
@@ -455,7 +460,7 @@ class ObjectApiController extends GlavwebRestController
             'instance' => $instance,
             'values'   => $values,
         ]);
-        
+
         /** @var \Swift_Mime_Message $message */
         $mailer = $this->get('mailer');
         $message = \Swift_Message::newInstance()

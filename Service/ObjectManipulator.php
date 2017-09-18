@@ -20,6 +20,7 @@ use Glavweb\CompositeObjectBundle\Entity\Value\ValueObject;
 use Glavweb\CompositeObjectBundle\Provider\Field\FieldProviderRegistry;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityRepository;
+use Glavweb\CompositeObjectBundle\Repository\ObjectInstanceRepository;
 use MongoDB\BSON\ObjectID;
 use MongoDB\Collection;
 use Glavweb\MongoDBBundle\Registry as MongoDBRegistry;
@@ -118,6 +119,22 @@ class ObjectManipulator
             $this->saveInMongoDB($linkedObject);
 
             $this->updateLinkedValuesInMongoDB($linkedObject);
+        }
+    }
+
+    /**
+     * @param ObjectClass $class
+     */
+    public function updatePositionsInMongoDBByClass(ObjectClass $class): void
+    {
+        $em = $this->doctrine->getManager();
+
+        /** @var ObjectInstanceRepository $objectInstanceRepository */
+        $objectInstanceRepository = $em->getRepository(ObjectInstance::class);
+        $objectInstances = $objectInstanceRepository->findBy(['class' => $class]);
+
+        foreach ($objectInstances as $objectInstance) {
+            $this->updatePositionInMongoDB($objectInstance);
         }
     }
 
@@ -300,6 +317,9 @@ class ObjectManipulator
         $database   = $this->mongodb->getDatabase();
         $collection = $database->$className;
 
+        // set position
+        $data['_position'] = $object->getPosition();
+
         $insertOneResult = $collection->insertOne($data);
         $insertedId = $insertOneResult->getInsertedId();
 
@@ -326,9 +346,37 @@ class ObjectManipulator
         $database   = $this->mongodb->getDatabase();
         $collection = $database->$className;
 
+        // set position
+        $data['_position'] = $object->getPosition();
+
         $updateResult = $collection->replaceOne(
             ['_id' => new ObjectID($mongodbId)],
             $data,
+            ['upsert' => true]
+        );
+
+        if (!$updateResult->isAcknowledged()) {
+            throw new \RuntimeException(sprintf('Error when update to MongoDB (instance: %s).',
+                $object->getId()
+            ));
+        }
+    }
+
+    /**
+     * @param ObjectInstance $object
+     */
+    private function updatePositionInMongoDB(ObjectInstance $object): void
+    {
+        /** @var Collection $collection */
+        $className  = $object->getClass()->getName();
+        $database   = $this->mongodb->getDatabase();
+        $collection = $database->$className;
+
+        $updateResult = $collection->updateOne(
+            ['_id' => new ObjectID($object->getMongodbId())],
+            [
+                '$set' => ['_position' => $object->getPosition()]
+            ],
             ['upsert' => true]
         );
 

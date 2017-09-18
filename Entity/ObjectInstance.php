@@ -53,7 +53,7 @@ class ObjectInstance
      * @ORM\Column(name="position", type="integer", nullable=false, options={"comment": "Позиция в списке"})
      * @Gedmo\SortablePosition
      */
-    private $position = 0;
+    private $position;
 
     /**
      * @var string
