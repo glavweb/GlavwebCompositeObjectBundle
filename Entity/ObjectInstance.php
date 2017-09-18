@@ -129,7 +129,7 @@ class ObjectInstance
     {
         if ($this->getId()) {
             $toStringTemplate = $this->getClass()->getToStringTemplate();
-            if ($toStringTemplate) {
+            if ($toStringTemplate && $this->getObjectManager()) {
                 return $this->toStringByTemplate($toStringTemplate);
             }
 
