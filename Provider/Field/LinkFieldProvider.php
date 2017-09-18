@@ -165,16 +165,14 @@ class LinkFieldProvider extends AbstractFieldProvider
      */
     public function getFormData(AbstractValue $value = null)
     {
-        if ($value === null) {
-            return [];
-        }
+        if ($value !== null) {
+            if (!$value instanceof ValueLink) {
+                throw new \Exception('Value must be instance of ValueLink.');
+            }
 
-        if (!$value instanceof ValueLink) {
-            throw new \Exception('Value must be instance of ValueLink.');
-        }
-
-        if ($value->getLink() instanceof ObjectInstance) {
-            return $value->getLink()->getId();
+            if ($value->getLink() instanceof ObjectInstance) {
+                return $value->getLink()->getId();
+            }
         }
 
         return null;
