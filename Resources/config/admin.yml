@@ -1,7 +1,7 @@
 services:
     object_instance:
         class: Glavweb\CompositeObjectBundle\Admin\ObjectInstanceAdmin
-        arguments: [~, Glavweb\CompositeObjectBundle\Entity\ObjectInstance, GlavwebCompositeObjectBundle:CRUD]
+        arguments: [~, Glavweb\CompositeObjectBundle\Entity\ObjectInstance, GlavwebCompositeObjectBundle:Admin\ObjectInstanceAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: none, label: dashboard.label_option, label_translator_strategy: "sonata.admin.label.strategy.underscore"}
         calls:

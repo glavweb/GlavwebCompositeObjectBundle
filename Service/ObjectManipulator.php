@@ -24,6 +24,7 @@ use Glavweb\CompositeObjectBundle\Repository\ObjectInstanceRepository;
 use MongoDB\BSON\ObjectID;
 use MongoDB\Collection;
 use Glavweb\MongoDBBundle\Registry as MongoDBRegistry;
+use MongoDB\Model\BSONDocument;
 
 /**
  * Class ObjectManipulator
@@ -119,6 +120,65 @@ class ObjectManipulator
             $this->saveInMongoDB($linkedObject);
 
             $this->updateLinkedValuesInMongoDB($linkedObject);
+        }
+    }
+
+    /**
+     * @param ObjectClass $class
+     */
+    public function updateInMongoDBByClass(ObjectClass $class): void
+    {
+        /** @var Collection $collection */
+        $em         = $this->doctrine->getManager();
+        $className  = $class->getName();
+        $database   = $this->mongodb->getDatabase();
+        $collection = $database->$className;
+
+        /** @var ObjectInstanceRepository $objectInstanceRepository */
+        /** @var ObjectInstance[] $objectInstances */
+        $objectInstanceRepository = $em->getRepository(ObjectInstance::class);
+        $objectInstances = $objectInstanceRepository->findBy(['class' => $class]);
+
+        // Get ids objects from mongoDB
+        /** @var BSONDocument[] $objectFromMongoDb */
+        $objectFromMongoDb = $collection->find([], [
+            'projection' => ['_id' => 1, 'id' => 1]
+        ])->toArray();
+
+        $mongoDbObjectIds = [];
+        foreach ($objectFromMongoDb as $item) {
+            /** @var ObjectID $mongoDbObjectId */
+            $mongoDbObjectId = $item->bsonSerialize()->_id;
+
+            $mongoDbObjectIds[(string)$mongoDbObjectId] = $mongoDbObjectId;
+        }
+
+        // Update object from mongoDB
+        foreach ($objectInstances as $objectInstance) {
+            $mongodbId = $objectInstance->getMongodbId();
+            if ($mongodbId && isset($mongoDbObjectIds[$mongodbId])) {
+                unset($mongoDbObjectIds[$mongodbId]);
+            }
+
+            $this->saveInMongoDB($objectInstance);
+        }
+
+        // Delete rest objects form MongoDB
+        $deleteErrors = [];
+        foreach ($mongoDbObjectIds as $mongoDbObjectId) {
+            $deleteResult = $collection->deleteOne(
+                ['_id' => $mongoDbObjectId]
+            );
+
+            if (!$deleteResult->isAcknowledged()) {
+                $deleteErrors[] = sprintf('Error when delete to MongoDB (instance: %s).',
+                    (string)$mongoDbObjectId
+                );
+            }
+        }
+
+        if ($deleteErrors) {
+            throw new \RuntimeException(implode(', ', $deleteErrors));
         }
     }
 

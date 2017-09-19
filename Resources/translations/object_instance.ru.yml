@@ -13,3 +13,7 @@ breadcrumb:
 tab:
     label_common: Общее
     label_recipients: Получатели
+    label_update_objects_in_mongodb: Обновление объектов в API
+
+flash_update_mongo_db_success: Объекты успешно обновлены.
+flash_update_mongo_db_error: Во время обновления объектов произошла ошибка.

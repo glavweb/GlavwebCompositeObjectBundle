@@ -26,6 +26,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Knp\Menu\ItemInterface as MenuItemInterface;
@@ -54,6 +55,16 @@ class ObjectInstanceAdmin extends AbstractAdmin
     protected $baseRouteName = 'composite_object_instance';
 
     /**
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+
+        $collection->add('update_mongodb', 'update-mongodb');
+    }
+
+    /**
      * @param MenuItemInterface $menu
      * @param $action
      * @param AdminInterface $childAdmin
@@ -68,10 +79,15 @@ class ObjectInstanceAdmin extends AbstractAdmin
         if ($this->getObjectClass()->getNotificationEnabled()) {
             $router = $this->getConfigurationPool()->getContainer()->get('router');
             $menu->addChild('recipients', [
-                'uri' => $router->generate('notification_recipient_list', array('class' => $this->getObjectClassName())),
+                'uri' => $router->generate('notification_recipient_list', ['class' => $this->getObjectClassName()]),
                 'label' => $this->trans('tab.label_recipients')
             ]);
         }
+
+        $menu->addChild('update_mongodb', [
+            'uri' => $this->generateUrl('update_mongodb', ['class' => $this->getObjectClassName()]),
+            'label' => $this->trans('tab.label_update_objects_in_mongodb')
+        ]);
     }
 
     /**
