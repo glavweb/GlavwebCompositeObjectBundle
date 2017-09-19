@@ -122,3 +122,10 @@ services:
         arguments: ["@glavweb_cms_composite_object.object_manager", "@glavweb_cms_composite_object.api_data_manager", "@glavweb_mongodb"]
         tags:
             - { name: doctrine.orm.entity_listener }
+
+    # Command
+    glavweb_cms_composite_object.sort_objects_by_id_command:
+        class: Glavweb\CompositeObjectBundle\Command\SortObjectsByIdCommand
+        arguments: ["@doctrine"]
+        tags:
+            - { name: console.command}
