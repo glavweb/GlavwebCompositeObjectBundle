@@ -12,6 +12,7 @@
 namespace Glavweb\CompositeObjectBundle\Admin;
 
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManager;
 use Glavweb\CompositeObjectBundle\Entity\Field;
 use Glavweb\CompositeObjectBundle\Entity\ObjectInstance;
 use Glavweb\CompositeObjectBundle\Entity\Value\AbstractValue;
@@ -23,6 +24,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -288,6 +290,31 @@ class ObjectInstanceAdmin extends AbstractAdmin
     {
         $objectManipulator = $this->getContainer()->get('glavweb_cms_composite_object.object_manipulator');
         $objectManipulator->deleteObject($object);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preBatchAction($actionName, ProxyQueryInterface $query, array &$idx, $allElements)
+    {
+        if ($actionName === 'delete') {
+            /** @var EntityManager $em */
+            $em                       = $this->getDoctrine()->getManager();
+            $objectInstanceRepository = $em->getRepository(ObjectInstance::class);
+            $objectManipulator        = $this->getContainer()->get('glavweb_cms_composite_object.object_manipulator');
+
+            $objects = $objectInstanceRepository->findBy([
+                'id' => $idx
+            ]);
+
+            foreach ($objects as $object) {
+                $objectManipulator->deleteObject($object);
+            }
+
+            // Hidden because sonata admin bundle throw exception if $idx is empty.
+            // Waiting approving https://github.com/sonata-project/SonataAdminBundle/pull/4659
+            // $idx = []; // avoiding duplicate deleting
+        }
     }
 
     /**
