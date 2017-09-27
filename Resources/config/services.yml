@@ -129,3 +129,9 @@ services:
         arguments: ["@doctrine"]
         tags:
             - { name: console.command}
+
+    glavweb_cms_composite_object.update_mongo_db_command:
+        class: Glavweb\CompositeObjectBundle\Command\UpdateMongoDbCommand
+        arguments: ["@doctrine", "@glavweb_cms_composite_object.object_manipulator"]
+        tags:
+            - { name: console.command}

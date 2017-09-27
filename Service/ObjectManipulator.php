@@ -124,6 +124,21 @@ class ObjectManipulator
     }
 
     /**
+     * Update in MongoDB
+     */
+    public function updateInMongoDB(): void
+    {
+        /** @var EntityRepository $objectClassRepository */
+        $em = $this->doctrine->getManager();
+        $objectClassRepository = $em->getRepository(ObjectClass::class);
+
+        $objectClasses = $objectClassRepository->findAll();
+        foreach ($objectClasses as $objectClass) {
+            $this->updateInMongoDBByClass($objectClass);
+        }
+    }
+
+    /**
      * @param ObjectClass $class
      */
     public function updateInMongoDBByClass(ObjectClass $class): void
