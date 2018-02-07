@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class NotificationRecipient
  *
- * @package AppBundle\Entity
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  *
  * @ORM\Table(name="notification_recipients")
@@ -27,7 +27,7 @@ class NotificationRecipient
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", options={"comment": "ID получателя"})
+     * @ORM\Column(name="id", type="integer", options={"comment": "ID of recipient"})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -36,7 +36,7 @@ class NotificationRecipient
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", nullable=false, options={"comment": "E-mail получателя"})
+     * @ORM\Column(name="email", type="string", nullable=false, options={"comment": "E-mail of recipient"})
      */
     private $email;
 

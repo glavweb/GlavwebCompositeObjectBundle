@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * Class GlavwebCompositeObjectBundle
  *
- * @package Glavweb\CompositeObjectBundle
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class GlavwebCompositeObjectBundle extends Bundle

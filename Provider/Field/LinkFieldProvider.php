@@ -25,7 +25,7 @@ use Symfony\Component\Form\FormFactory;
 /**
  * Class LinkFieldProvider
  *
- * @package Glavweb\CompositeObjectBundle\Provider\Field
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class LinkFieldProvider extends AbstractFieldProvider

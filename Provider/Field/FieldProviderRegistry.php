@@ -14,7 +14,7 @@ namespace Glavweb\CompositeObjectBundle\Provider\Field;
 /**
  * Class FieldProviderRegistry
  *
- * @package Glavweb\CompositeObjectBundle\Provider\Field
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class FieldProviderRegistry

@@ -22,7 +22,7 @@ use Glavweb\RestBundle\Mapping\Annotation as RestExtra;
 /**
  * Class Field
  *
- * @package AppBundle\Entity
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  *
  * @ORM\Table(name="composite_object_fields")
@@ -37,7 +37,7 @@ class Field
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", options={"comment": "ID поля"})
+     * @ORM\Column(name="id", type="integer", options={"comment": "ID of field"})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -46,16 +46,21 @@ class Field
     /**
      * @var int
      *
-     * @ORM\Column(name="position", type="integer", nullable=false, options={"comment": "Позиция в списке"})
+     * @ORM\Column(name="position", type="integer", nullable=false, options={"comment": "Position is list"})
      * @Gedmo\SortablePosition
      */
     private $position = 0;
 
     /**
+     * @var int
+     */
+    private $plainPosition;
+
+    /**
      * @var string
      *
+     * @ORM\Column(name="type", type="CompositeObjectFieldType", length=255, nullable=false, options={"comment": "Type of field"})
      * @EnumAssert(entity="Glavweb\CompositeObjectBundle\DBAL\Types\Object\CompositeObjectFieldType")
-     * @ORM\Column(name="type", type="CompositeObjectFieldType", length=255, nullable=false, options={"comment": "Тип поля"})
      * @Assert\NotBlank
      */
     private $type;
@@ -65,7 +70,7 @@ class Field
      *
      * @var string
      *
-     * @ORM\Column(name="name", type="string", nullable=false, options={"comment": "Название поля"})
+     * @ORM\Column(name="name", type="string", nullable=false, options={"comment": "System name"})
      * @Assert\NotBlank
      */
     private $name;
@@ -75,14 +80,14 @@ class Field
      *
      * @var string
      *
-     * @ORM\Column(name="label", type="string", nullable=true, options={"comment": "Лейбл поля"})
+     * @ORM\Column(name="label", type="string", nullable=true, options={"comment": "Label"})
      */
     private $label = null;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="required", type="boolean", nullable=true, options={"comment": "Обязательное ли поля для формы"})
+     * @ORM\Column(name="required", type="boolean", nullable=true, options={"comment": "Required for form?"})
      */
     private $required = false;
 
@@ -98,14 +103,14 @@ class Field
     /**
      * @var bool
      *
-     * @ORM\Column(name="is_list", type="boolean", nullable=true, options={"comment": "Наличие поля в списке"})
+     * @ORM\Column(name="is_list", type="boolean", nullable=true, options={"comment": "Is in list?"})
      */
     private $isList = false;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="is_filter", type="boolean", nullable=true, options={"comment": "Наличие фильтра по полю"})
+     * @ORM\Column(name="is_filter", type="boolean", nullable=true, options={"comment": "Is in filter?"})
      */
     private $isFilter = false;
 
@@ -114,7 +119,7 @@ class Field
      *
      * @var bool
      *
-     * @ORM\Column(name="options", type="array", nullable=true, options={"comment": "Дополнительные опции к полю"})
+     * @ORM\Column(name="options", type="array", nullable=true, options={"comment": "Additional options"})
      */
     private $options = [];
 
@@ -182,6 +187,30 @@ class Field
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * Set plain position
+     *
+     * @param integer $position
+     *
+     * @return Field
+     */
+    public function setPlainPosition($position)
+    {
+        $this->plainPosition = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get plain position
+     *
+     * @return integer
+     */
+    public function getPlainPosition()
+    {
+        return $this->plainPosition;
     }
 
     /**

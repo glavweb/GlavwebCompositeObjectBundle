@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Class ObjectInstanceRepository
  *
- * @package Glavweb\CompositeObjectBundle\Repository
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class ObjectInstanceRepository extends EntityRepository

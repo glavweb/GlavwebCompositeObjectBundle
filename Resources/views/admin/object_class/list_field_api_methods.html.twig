@@ -1,0 +1,5 @@
+{% extends 'SonataAdminBundle:CRUD:list_html.html.twig' %}
+
+{% block field %}
+    {{ object.apiMethods|join(', ') }}
+{% endblock %}

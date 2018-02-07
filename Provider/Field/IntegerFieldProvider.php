@@ -23,7 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 /**
  * Class IntegerFieldProvider
  *
- * @package Glavweb\CompositeObjectBundle\Provider\Field
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class IntegerFieldProvider extends AbstractFieldProvider

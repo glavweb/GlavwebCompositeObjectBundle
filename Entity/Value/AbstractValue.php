@@ -14,12 +14,11 @@ namespace Glavweb\CompositeObjectBundle\Entity\Value;
 use Glavweb\CompositeObjectBundle\Entity\Field;
 use Glavweb\CompositeObjectBundle\Entity\ObjectInstance;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Value
+ * Class AbstractValue
  *
- * @package AppBundle\Entity
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  *
  * @ORM\Table(name="composite_object_values")
@@ -45,7 +44,7 @@ abstract class AbstractValue implements ValueInterface
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", options={"comment": "ID значения объекта"})
+     * @ORM\Column(name="id", type="integer", options={"comment": "ID of value"})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

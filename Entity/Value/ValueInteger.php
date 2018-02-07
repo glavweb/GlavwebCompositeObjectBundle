@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class ValueInteger
  *
- * @package AppBundle\Entity
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  *
  * @ORM\Entity
@@ -29,7 +29,7 @@ class ValueInteger extends AbstractValue
      *
      * @var int
      *
-     * @ORM\Column(name="value_integer", type="integer", nullable=false, options={"comment": "Значение как число"})
+     * @ORM\Column(name="value_integer", type="integer", nullable=false, options={"comment": "Integer value"})
      * @Assert\NotBlank
      */
     private $integer;

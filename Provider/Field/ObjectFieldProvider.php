@@ -26,7 +26,7 @@ use Symfony\Component\Form\FormFactory;
 /**
  * Class ObjectFieldProvider
  *
- * @package Glavweb\CompositeObjectBundle\Provider\Field
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class ObjectFieldProvider extends AbstractFieldProvider

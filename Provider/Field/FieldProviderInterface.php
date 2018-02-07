@@ -23,7 +23,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * Interface FieldProviderInterface
  *
- * @package Glavweb\CompositeObjectBundle\Provider\Field
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 interface FieldProviderInterface

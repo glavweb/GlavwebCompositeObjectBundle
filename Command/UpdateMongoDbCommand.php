@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class UpdateMongoDbCommand
  *
- * @package Glavweb\CompositeObjectBundle\Command
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class UpdateMongoDbCommand extends Command

@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Glavweb\CompositeObjectBundle\Normalizer;
 
 use MongoDB\Model\BSONDocument;
@@ -19,7 +18,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 /**
  * Class BSONDocumentNormalizer
  *
- * @package AppBundle\Normalizer
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class BSONDocumentNormalizer implements NormalizerInterface

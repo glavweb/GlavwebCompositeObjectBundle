@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Value
  *
- * @package AppBundle\Entity
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  *
  * @ORM\Entity
@@ -29,7 +29,7 @@ class ValueText extends AbstractValue
      *
      * @var string
      *
-     * @ORM\Column(name="value_text", type="text", nullable=false, options={"comment": "Значение как текст"})
+     * @ORM\Column(name="value_text", type="text", nullable=false, options={"comment": "Text value"})
      * @Assert\NotBlank
      */
     private $text;

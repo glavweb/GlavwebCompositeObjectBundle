@@ -21,7 +21,7 @@ use Glavweb\MongoDBBundle\Registry;
 /**
  * Class ObjectInstanceListener
  *
- * @package Glavweb\CompositeObjectBundle\EventListener
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class ObjectInstanceListener

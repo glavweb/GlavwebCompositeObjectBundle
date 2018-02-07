@@ -113,7 +113,7 @@ services:
     # Event Listener
     glavweb_cms_composite_object.menu_builder_listener:
         class: Glavweb\CompositeObjectBundle\EventListener\MenuBuilderListener
-        arguments: ["@request_stack", "@glavweb_cms_composite_object.object_manager"]
+        arguments: ["@request_stack", "@glavweb_cms_composite_object.object_manager", "%glavweb_composite_object.instances_admin_group%"]
         tags:
             - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar, method: addMenuItems }
 

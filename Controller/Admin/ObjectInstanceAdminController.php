@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class ObjectInstanceAdminController
  *
- * @package Glavweb\CompositeObjectBundle\Controller\Admin
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class ObjectInstanceAdminController extends CRUDController

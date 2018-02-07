@@ -19,10 +19,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 /**
  * Class NotificationRecipientAdmin
  *
- * @package Glavweb\CompositeObjectBundle\Admin
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
-class NotificationRecipientAdmin extends AbstractAdmin
+class NotificationRecipientAdmin extends AbstractObjectInstanceAdmin
 {
     /**
      * The base route pattern used to generate the routing information

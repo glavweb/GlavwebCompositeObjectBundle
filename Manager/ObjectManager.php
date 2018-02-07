@@ -21,7 +21,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 /**
  * Class ObjectManager
  *
- * @package Glavweb\CompositeObjectBundle\Manager
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class ObjectManager

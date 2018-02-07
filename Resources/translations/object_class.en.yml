@@ -1,0 +1,42 @@
+filter:
+    label_name: System name
+    label_label: Label
+    label_group: Group
+    label_is_subclass: Is subclass?
+    label_notification_enabled: Notification enabled?
+    label_captcha_enabled: Captcha enabled?
+    label_api_methods: API methods
+
+list:
+    label__action: Действия
+    label_name: System name
+    label_label: Label
+    label_group: Group
+    label_is_subclass: Is subclass?
+    label_notification_enabled: Notification enabled?
+    label_captcha_enabled: Captcha enabled?
+    label_api_methods: API methods
+
+form:
+    label_name: System name
+    label_label: Label
+    label_group: Group
+    label_to_string_template: Template for toString() for instance
+    label_is_subclass: Is subclass?
+    label_notification_enabled: Notification enabled?
+    label_captcha_enabled: Captcha enabled?
+    label_captcha_options: Captcha options
+    label_api_methods: API methods
+    label_fields: Fields
+
+dashboard:
+    label_object_class: Object classes
+
+breadcrumb:
+    link_object_class_list: Object classes
+    link_object_class_create: Create
+    link_object_class_edit: Edit
+
+tab:
+    general: Class
+    fields: Fields

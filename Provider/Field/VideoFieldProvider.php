@@ -28,7 +28,7 @@ use Symfony\Component\Form\FormFactory;
 /**
  * Class VideoFieldProvider
  *
- * @package Glavweb\CompositeObjectBundle\Provider\Field
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class VideoFieldProvider extends AbstractMediaFieldProvider

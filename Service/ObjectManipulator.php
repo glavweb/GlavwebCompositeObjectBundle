@@ -29,7 +29,7 @@ use MongoDB\Model\BSONDocument;
 /**
  * Class ObjectManipulator
  *
- * @package Glavweb\CompositeObjectBundle\Service
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class ObjectManipulator

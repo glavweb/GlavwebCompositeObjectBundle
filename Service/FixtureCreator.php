@@ -24,7 +24,7 @@ use Glavweb\MongoDBBundle\Registry as MongoDBRegistry;
 /**
  * Class FixtureCreator
  *
- * @package Glavweb\CompositeObjectBundle\Service
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class FixtureCreator

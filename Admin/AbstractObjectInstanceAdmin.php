@@ -13,18 +13,18 @@ namespace Glavweb\CompositeObjectBundle\Admin;
 
 use Glavweb\CompositeObjectBundle\Entity\ObjectClass;
 use Glavweb\CompositeObjectBundle\Entity\ObjectInstance;
-use Glavweb\CmsCoreBundle\Admin\AbstractAdmin as BaseAdmin;
+use Glavweb\CmsCoreBundle\Admin\AbstractAdmin;
 use Glavweb\CmsCoreBundle\Admin\HasSortable;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class AbstractAdmin
+ * Class AbstractObjectInstanceAdmin
  *
- * @package Glavweb\CompositeObjectBundle\Admin
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
-class AbstractAdmin extends BaseAdmin implements HasSortable
+class AbstractObjectInstanceAdmin extends AbstractAdmin implements HasSortable
 {
     /**
      * @var array
@@ -66,7 +66,7 @@ class AbstractAdmin extends BaseAdmin implements HasSortable
 
         $proxyQuery->andWhere(sprintf('%s.class = :class', $rootAlias));
         $proxyQuery->setParameter('class', $this->getObjectClass());
-        
+
         return $proxyQuery;
     }
 

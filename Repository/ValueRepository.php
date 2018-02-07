@@ -19,7 +19,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Class ValueRepository
  *
- * @package Glavweb\CompositeObjectBundle\Repository
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class ValueRepository extends EntityRepository

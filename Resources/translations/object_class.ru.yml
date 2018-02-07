@@ -1,0 +1,42 @@
+filter:
+    label_name: Системное имя
+    label_label: Название
+    label_group: Группа
+    label_is_subclass: Является ли подклассом
+    label_notification_enabled: Влкючена ли отправка уведомлений
+    label_captcha_enabled: Влкючена ли капча
+    label_api_methods: Доступные методы в API
+
+list:
+    label__action: Действия
+    label_name: Системное имя
+    label_label: Название
+    label_group: Группа
+    label_is_subclass: Подкласс
+    label_notification_enabled: Отправка уведомлений
+    label_captcha_enabled: Капча
+    label_api_methods: Методы API
+
+form:
+    label_name: Системное имя
+    label_label: Название
+    label_group: Группа
+    label_to_string_template: Шаблон для toString()
+    label_is_subclass: Является ли подклассом
+    label_notification_enabled: Влкючена ли отправка уведомлений
+    label_captcha_enabled: Влкючена ли капча
+    label_captcha_options: Опции капчи
+    label_api_methods: Доступные методы в API
+    label_fields: Поля
+
+dashboard:
+    label_object_class: Классы объектов
+
+breadcrumb:
+    link_object_class_list: Классы объектов
+    link_object_class_create: Создать
+    link_object_class_delete: Удалить
+
+tab:
+    general: Класс
+    fields: Поля

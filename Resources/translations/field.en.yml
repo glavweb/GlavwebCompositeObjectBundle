@@ -1,0 +1,25 @@
+form:
+    label_type: Type
+    label_name: System name
+    label_label: Label
+    label_required: Required
+    label_denormalized: Denormalized.
+    label_is_list: In list
+    label_is_filter: In filter
+    label_options: Options
+    label_linked_class: Linked Class
+    label_plain_position: Position
+
+composite_object_field_type:
+    string: String
+    text: Text
+    integer: Integer
+    boolean: Boolean
+    image: Image
+    image_collection: Image Collection
+    video: Video
+    video_collection: Video Collection
+    file: File
+    object: Object
+    object_collection: Object Collection
+    link: Link

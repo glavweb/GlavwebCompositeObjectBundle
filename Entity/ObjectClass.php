@@ -19,7 +19,7 @@ use Glavweb\RestBundle\Mapping\Annotation as RestExtra;
 /**
  * Class ObjectClass
  *
- * @package AppBundle\Entity
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  *
  * @ORM\Table(name="composite_object_classes")
@@ -34,7 +34,7 @@ class ObjectClass
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", options={"comment": "ID класса объектов"})
+     * @ORM\Column(name="id", type="integer", options={"comment": "ID object class"})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -45,7 +45,7 @@ class ObjectClass
      *
      * @var string
      *
-     * @ORM\Column(name="name", type="string", nullable=false, options={"comment": "Название класса"})
+     * @ORM\Column(name="name", type="string", nullable=false, options={"comment": "System name"})
      * @Assert\NotBlank
      */
     private $name;
@@ -55,7 +55,7 @@ class ObjectClass
      *
      * @var string
      *
-     * @ORM\Column(name="label", type="string", nullable=true, options={"comment": "Лейбл класса"})
+     * @ORM\Column(name="label", type="string", nullable=true, options={"comment": "Label"})
      */
     private $label = null;
 
@@ -69,11 +69,11 @@ class ObjectClass
     private $toStringTemplate = null;
 
     /**
-     * Лейбл класса
+     * Группа классов
      *
      * @var string
      *
-     * @ORM\Column(name="class_group", type="string", nullable=true, options={"comment": "Группа классов"})
+     * @ORM\Column(name="class_group", type="string", nullable=true, options={"comment": "Group"})
      */
     private $group = null;
 
@@ -82,7 +82,7 @@ class ObjectClass
      *
      * @var bool
      *
-     * @ORM\Column(name="is_subclass", type="boolean", nullable=false, options={"comment": "Является ли подклассом"})
+     * @ORM\Column(name="is_subclass", type="boolean", nullable=false, options={"comment": "Is subclass?"})
      */
     private $isSubclass = false;
 
@@ -91,7 +91,7 @@ class ObjectClass
      *
      * @var bool
      *
-     * @ORM\Column(name="notification_enabled", type="boolean", nullable=false, options={"comment": "Влкючена ли отправка уведомлений"})
+     * @ORM\Column(name="notification_enabled", type="boolean", nullable=false, options={"comment": "Notification enabled?"})
      */
     private $notificationEnabled = false;
 
@@ -112,7 +112,7 @@ class ObjectClass
     /**
      * @var array
      *
-     * @ORM\Column(name="api_methods", type="array", nullable=false, options={"comment": "Доступные методы в API"})
+     * @ORM\Column(name="api_methods", type="array", nullable=false, options={"comment": "API methods"})
      */
     private $apiMethods = ['view', 'list'];
 
@@ -120,7 +120,7 @@ class ObjectClass
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Field", mappedBy="class", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"position" = "DESC"})
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $fields;
 

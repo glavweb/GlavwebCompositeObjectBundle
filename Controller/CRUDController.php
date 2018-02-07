@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 /**
  * Class CRUDController
  *
- * @package Glavweb\CompositeObjectBundle\Controller
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class CRUDController extends BaseCRUDController

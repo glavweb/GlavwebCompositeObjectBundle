@@ -23,7 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 /**
  * Class TextFieldProvider
  *
- * @package Glavweb\CompositeObjectBundle\Provider\Field
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class TextFieldProvider extends AbstractFieldProvider

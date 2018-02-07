@@ -19,7 +19,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 /**
  * Class ApiDataManager
  *
- * @package Glavweb\CompositeObjectBundle\Service
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class ApiDataManager

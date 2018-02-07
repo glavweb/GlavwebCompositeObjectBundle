@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class ObjectCollectionType
  *
- * @package Glavweb\CompositeObjectBundle\Form
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class ObjectCollectionType extends AbstractType

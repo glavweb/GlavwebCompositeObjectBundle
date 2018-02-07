@@ -14,7 +14,7 @@ namespace Glavweb\CompositeObjectBundle\Entity\Value;
 /**
  * Interface ValueInterface
  *
- * @package Glavweb\CompositeObjectBundle\Entity\Value
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 interface ValueInterface

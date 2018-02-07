@@ -21,9 +21,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Glavweb\RestBundle\Mapping\Annotation as RestExtra;
 
 /**
- * Class Material
+ * Class ObjectInstance
  *
- * @package AppBundle\Entity
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  *
  * @ORM\Table(name="composite_object_instances")
@@ -41,7 +41,7 @@ class ObjectInstance
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", options={"comment": "ID экземпляра объекта"})
+     * @ORM\Column(name="id", type="integer", options={"comment": "ID of instance"})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -50,7 +50,7 @@ class ObjectInstance
     /**
      * @var int
      *
-     * @ORM\Column(name="position", type="integer", nullable=false, options={"comment": "Позиция в списке"})
+     * @ORM\Column(name="position", type="integer", nullable=false, options={"comment": "Position in list"})
      * @Gedmo\SortablePosition
      */
     private $position;

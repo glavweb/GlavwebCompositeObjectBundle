@@ -21,7 +21,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/configuration.html}
  *
- * @package Glavweb\CompositeObjectBundle\DependencyInjection
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class Configuration implements ConfigurationInterface
@@ -34,9 +34,16 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('cms_composite_object');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->scalarNode('class_admin_group')
+                    ->defaultValue('label_group_composite_object_class')
+                ->end()
+                ->scalarNode('instances_admin_group')
+                    ->defaultNull()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

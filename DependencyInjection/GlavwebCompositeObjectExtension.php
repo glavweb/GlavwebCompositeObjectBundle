@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  *
- * @package Glavweb\CompositeObjectBundle\DependencyInjection
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class GlavwebCompositeObjectExtension extends Extension
@@ -35,6 +35,9 @@ class GlavwebCompositeObjectExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('glavweb_composite_object.class_admin_group', $config['class_admin_group']);
+        $container->setParameter('glavweb_composite_object.instances_admin_group', $config['instances_admin_group']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('admin.yml');

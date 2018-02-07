@@ -21,7 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class AdminListBlockService
  *
- * @package Glavweb\CompositeObjectBundle\Block
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class AdminListBlockService extends AbstractAdminBlockService

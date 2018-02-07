@@ -24,7 +24,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class SortObjectsByIdCommand
  *
- * @package Glavweb\CompositeObjectBundle\Command
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class SortObjectsByIdCommand extends Command

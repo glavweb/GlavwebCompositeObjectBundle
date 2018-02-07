@@ -18,7 +18,7 @@ use Glavweb\CompositeObjectBundle\Provider\Field\FieldProviderRegistry;
 /**
  * Class CmsCompositeObjectExtension
  *
- * @package Glavweb\CompositeObjectBundle\Twig
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class CmsCompositeObjectExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface

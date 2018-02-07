@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class FixtureType
  *
- * @package Glavweb\CompositeObjectBundle\Form
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class FixtureType extends AbstractType

@@ -23,7 +23,7 @@ use Glavweb\CompositeObjectBundle\Form\FixtureType as FixtureFormType;
 /**
  * Class FixtureApiController
  *
- * @package Glavweb\CompositeObjectBundle\Controller\Api
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class FixtureApiController extends GlavwebRestController

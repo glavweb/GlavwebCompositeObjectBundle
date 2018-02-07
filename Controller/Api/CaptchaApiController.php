@@ -23,7 +23,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 /**
  * Generates a captcha via a URL
  *
- * @package Glavweb\CompositeObjectBundle\Controller\Api
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class CaptchaApiController extends CaptchaController

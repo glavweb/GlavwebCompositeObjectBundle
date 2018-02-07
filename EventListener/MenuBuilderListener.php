@@ -19,31 +19,38 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Class MenuBuilderListener
  *
- * @package Glavweb\CmsCoreBundle\EventListener
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class MenuBuilderListener
 {
-    /**
-     * @var ObjectManager
-     */
-    private $objectManager;
-
     /**
      * @var null|\Symfony\Component\HttpFoundation\Request
      */
     private $request;
 
     /**
+     * @var ObjectManager
+     */
+    private $objectManager;
+
+    /**
+     * @var null|string
+     */
+    private $adminGroup;
+
+    /**
      * MenuBuilderListener constructor.
      *
      * @param RequestStack $requestStack
      * @param ObjectManager $objectManager
+     * @param string|null $adminGroup
      */
-    public function __construct(RequestStack $requestStack, ObjectManager $objectManager)
+    public function __construct(RequestStack $requestStack, ObjectManager $objectManager, string $adminGroup = null)
     {
-        $this->request = $requestStack->getCurrentRequest();
+        $this->request       = $requestStack->getCurrentRequest();
         $this->objectManager = $objectManager;
+        $this->adminGroup    = $adminGroup;
     }
 
 
@@ -60,9 +67,16 @@ class MenuBuilderListener
         $menu = $event->getMenu();
 
         foreach ($this->objectManager->getGroupedObjectClasses() as $groupName => $objectClasses) {
-            $group = $menu->addChild($groupName, [
-                'label' => $groupName,
-            ]);
+            if ($this->adminGroup) {
+                $groupName = $this->adminGroup;
+            }
+
+            $group = $menu->getChild($groupName);
+            if (!$group) {
+                $group = $menu->addChild($groupName, [
+                    'label' => $groupName,
+                ]);
+            }
 
             foreach ($objectClasses as $objectClass) {
                 /** @var ObjectClass $objectClass */

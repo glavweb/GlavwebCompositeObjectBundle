@@ -29,7 +29,7 @@ use Symfony\Component\Form\FormFactory;
 /**
  * Class ImageCollectionFieldProvider
  *
- * @package Glavweb\CompositeObjectBundle\Provider\Field
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class ImageCollectionFieldProvider extends AbstractMediaFieldProvider

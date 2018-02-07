@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 /**
  * Class AbstractFieldProvider
  *
- * @package Glavweb\CompositeObjectBundle\Provider\Field
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 abstract class AbstractFieldProvider implements FieldProviderInterface

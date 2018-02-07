@@ -35,10 +35,10 @@ use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 /**
  * Class ObjectInstanceAdmin
  *
- * @package Glavweb\CompositeObjectBundle\Admin
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
-class ObjectInstanceAdmin extends AbstractAdmin
+class ObjectInstanceAdmin extends AbstractObjectInstanceAdmin
 {
     /**
      * The base route pattern used to generate the routing information

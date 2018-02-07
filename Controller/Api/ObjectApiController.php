@@ -37,7 +37,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 /**
  * Class ObjectApiController
  *
- * @package Glavweb\CompositeObjectBundle\Controller\Api
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class ObjectApiController extends GlavwebRestController

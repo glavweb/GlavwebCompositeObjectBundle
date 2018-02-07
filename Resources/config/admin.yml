@@ -1,5 +1,5 @@
 services:
-    object_instance:
+    glavweb_composite_object.object_instance:
         class: Glavweb\CompositeObjectBundle\Admin\ObjectInstanceAdmin
         arguments: [~, Glavweb\CompositeObjectBundle\Entity\ObjectInstance, GlavwebCompositeObjectBundle:Admin\ObjectInstanceAdmin]
         tags:
@@ -11,10 +11,26 @@ services:
             - [ setTemplate, ["delete", "GlavwebCompositeObjectBundle:admin:delete.html.twig"]]
             - [ setTemplate, ["show", "GlavwebCompositeObjectBundle:admin:show.html.twig"]]
 
-    notification_recipient:
+    glavweb_composite_object.notification_recipient:
         class: Glavweb\CompositeObjectBundle\Admin\NotificationRecipientAdmin
         arguments: [~, Glavweb\CompositeObjectBundle\Entity\NotificationRecipient, GlavwebCmsCoreBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: none, label: dashboard.label_option, label_translator_strategy: "sonata.admin.label.strategy.underscore"}
         calls:
             - [ setTranslationDomain, ["notification_recipient"]]
+
+    glavweb_composite_object.object_class:
+        class: Glavweb\CompositeObjectBundle\Admin\ObjectClassAdmin
+        arguments: [~, Glavweb\CompositeObjectBundle\Entity\ObjectClass, GlavwebCmsCoreBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: "%glavweb_composite_object.class_admin_group%", label: dashboard.label_object_class, label_translator_strategy: "sonata.admin.label.strategy.underscore"}
+        calls:
+            - [ setTranslationDomain, ["object_class"]]
+
+    glavweb_composite_object.field:
+        class: Glavweb\CompositeObjectBundle\Admin\FieldAdmin
+        arguments: [~, Glavweb\CompositeObjectBundle\Entity\Field, GlavwebCmsCoreBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: none, label: dashboard.label_field, label_translator_strategy: "sonata.admin.label.strategy.underscore"}
+        calls:
+            - [ setTranslationDomain, ["field"]]

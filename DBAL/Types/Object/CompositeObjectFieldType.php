@@ -16,7 +16,7 @@ use Fresh\DoctrineEnumBundle\DBAL\Types\AbstractEnumType;
 /**
  * Class CompositeObjectFieldType
  *
- * @package Glavweb\CompositeObjectBundle\DBAL\Types\Object
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class CompositeObjectFieldType extends AbstractEnumType
@@ -38,17 +38,17 @@ class CompositeObjectFieldType extends AbstractEnumType
      * @var array
      */
     protected static $choices = array(
-        self::STRING            => 'Строка',
-        self::TEXT              => 'Текст',
-        self::INTEGER           => 'Число',
-        self::BOOLEAN           => 'Логический тип',
-        self::IMAGE             => 'Изображение',
-        self::IMAGE_COLLECTION  => 'Коллекция изображений',
-        self::VIDEO             => 'Видео',
-        self::VIDEO_COLLECTION  => 'Коллекция видео',
-        self::FILE              => 'Файл',
-        self::OBJECT            => 'Объект',
-        self::OBJECT_COLLECTION => 'Коллекция объектов',
-        self::LINK              => 'Ссылка на объект',
+        self::STRING            => 'composite_object_field_type.string',
+        self::TEXT              => 'composite_object_field_type.text',
+        self::INTEGER           => 'composite_object_field_type.integer',
+        self::BOOLEAN           => 'composite_object_field_type.boolean',
+        self::IMAGE             => 'composite_object_field_type.image',
+        self::IMAGE_COLLECTION  => 'composite_object_field_type.image_collection',
+        self::VIDEO             => 'composite_object_field_type.video',
+        self::VIDEO_COLLECTION  => 'composite_object_field_type.video_collection',
+        self::FILE              => 'composite_object_field_type.file',
+        self::OBJECT            => 'composite_object_field_type.object',
+        self::OBJECT_COLLECTION => 'composite_object_field_type.object_collection',
+        self::LINK              => 'composite_object_field_type.link'
     );
 }

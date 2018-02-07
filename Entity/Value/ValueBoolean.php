@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class ValueBoolean
  *
- * @package AppBundle\Entity
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  *
  * @ORM\Entity
@@ -29,7 +29,7 @@ class ValueBoolean extends AbstractValue
      *
      * @var boolean
      *
-     * @ORM\Column(name="value_boolean", type="boolean", nullable=false, options={"comment": "Значение как логический тип"})
+     * @ORM\Column(name="value_boolean", type="boolean", nullable=false, options={"comment": "Boolean value"})
      * @Assert\NotBlank
      */
     private $boolean;

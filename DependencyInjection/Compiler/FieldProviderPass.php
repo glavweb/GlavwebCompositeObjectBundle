@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 /**
  * Adds tagged glavweb_datagrid.data_transformer services to FieldProviderRegister service.
  *
- * @package Glavweb\Glavweb\CompositeObjectBundle
+ * @package GlavwebCompositeObjectBundle
  * @author Andrey Nilov <nilov@glavweb.ru>
  */
 class FieldProviderPass implements CompilerPassInterface
