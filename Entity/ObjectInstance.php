@@ -35,6 +35,7 @@ use Glavweb\RestBundle\Mapping\Annotation as RestExtra;
  * )
  *
  * @UniqueEntity(fields={"class", "fixtureId"})
+ * @ORM\HasLifecycleCallbacks
  */
 class ObjectInstance
 {
@@ -97,7 +98,7 @@ class ObjectInstance
     /**
      * @var ValueObjectCollection
      *
-     * @ORM\ManyToOne(targetEntity="Glavweb\CompositeObjectBundle\Entity\Value\ValueObjectCollection")
+     * @ORM\ManyToOne(targetEntity="Glavweb\CompositeObjectBundle\Entity\Value\ValueObjectCollection", inversedBy="objects")
      * @ORM\JoinColumn(name="value_object_collection_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     private $valueObjectCollection;

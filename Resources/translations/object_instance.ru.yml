@@ -11,7 +11,7 @@ breadcrumb:
     link_object_instance_edit: Редактирование
 
 tab:
-    label_common: Общее
+    label_default: Общее
     label_recipients: Получатели
     label_update_objects_in_mongodb: Обновление объектов в API
 

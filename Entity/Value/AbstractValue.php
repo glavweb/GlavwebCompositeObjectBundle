@@ -53,7 +53,7 @@ abstract class AbstractValue implements ValueInterface
     /**
      * @var ObjectInstance
      *
-     * @ORM\ManyToOne(targetEntity="Glavweb\CompositeObjectBundle\Entity\ObjectInstance", inversedBy="values", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Glavweb\CompositeObjectBundle\Entity\ObjectInstance", inversedBy="values")
      * @ORM\JoinColumn(name="instance_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $instance;

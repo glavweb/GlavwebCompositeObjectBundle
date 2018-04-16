@@ -152,7 +152,9 @@ class ObjectClass
      */
     public function __toString()
     {
-        return $this->getName() ?: 'n/a';
+        $name = $this->getLabel() ?: $this->getName();
+
+        return $name ?: 'n/a';
     }
     /**
      * Constructor

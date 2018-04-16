@@ -121,15 +121,21 @@ class ObjectClassAdmin extends AbstractAdmin implements HasSortable
                 ->with('group.general')
                     ->add('name')
                     ->add('label')
-                    ->add('toStringTemplate')
+                    ->add('toStringTemplate', null, [], [
+                        'help' => 'help_text'
+                    ])
                     ->add('group')
                 ->end()
                 ->with('group.additional')
                     ->add('apiMethods', ChoiceType::class, [
                         'choices' => [
-                            'list' => 'list',
-                            'view' => 'view'
+                            'api_method.list'   => 'list',
+                            'api_method.view'   => 'view',
+                            'api_method.create' => 'create',
+                            'api_method.update' => 'update',
+                            'api_method.delete' => 'delete'
                         ],
+                        'required' => false,
                         'multiple' => true
                     ])
 //                    ->add('captchaOptions') // Temporary commented
@@ -156,7 +162,7 @@ class ObjectClassAdmin extends AbstractAdmin implements HasSortable
                             'edit'         => 'inline',
                             'inline'       => 'table',
                             'allow_delete' => true,
-                            'sortable'     => 'plainPosition'
+                            'sortable'     => 'position'
                         ]
                     )
                 ->end()
@@ -193,9 +199,5 @@ class ObjectClassAdmin extends AbstractAdmin implements HasSortable
     public function preUpdate($objectClass)
     {
         /** @var ObjectClass $objectClass */
-        foreach ($objectClass->getFields() as $field) {
-            /** @var Field $field */
-            $field->setPosition((int)$field->getPlainPosition() - 1);
-        }
     }
 }

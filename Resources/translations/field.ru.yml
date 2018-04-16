@@ -2,13 +2,14 @@ form:
     label_type: Тип
     label_name: Системное имя
     label_label: Название
+    label_help: Коментарий
     label_required: Обяз.
     label_denormalized: Денором.
     label_is_list: В списке
     label_is_filter: В фильтрах
     label_options: Дополнительные опции
     label_linked_class: Связанный класс
-    label_plain_position: Поз.
+    label_position: Поз.
 
 composite_object_field_type:
     string: Строка

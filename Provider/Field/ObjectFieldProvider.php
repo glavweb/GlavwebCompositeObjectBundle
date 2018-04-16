@@ -175,9 +175,18 @@ class ObjectFieldProvider extends AbstractFieldProvider
             throw new \Exception('Linked class is not defined.');
         }
 
-        $keys = $this->getKeysForObjectFormElement($field, $value);
+        $fieldProviderRegistry = $this->fieldProviderRegistry;
 
-        return $keys;
+        $data = [];
+        foreach ($value->getObject()->getValues() as $value) {
+            /** @var AbstractValue $value */
+            $field = $value->getField();
+            $fieldProvider = $fieldProviderRegistry->get($field->getType());
+
+            $data[$value->getField()->getName()] = $fieldProvider->getValueData($value);
+        }
+
+        return $data;
     }
 
     /**
@@ -196,13 +205,12 @@ class ObjectFieldProvider extends AbstractFieldProvider
         $name     = $field->getName();
         $required = $field->getRequired();
         $type     = $this->getFormType();
-        $keys     = $this->getKeysForObjectFormElement($field, $value);
+        $options  = array_merge($this->getFormOptions($field), $options);
 
-        $formBuilder = $this->formFactory->createNamedBuilder($name, $type, null, array_merge([
+        $formBuilder = $this->formFactory->createNamedBuilder($name, $type, $this->getFormData($value), array_merge([
             'label'    => false,
             'required' => $required,
             'mapped'   => false,
-            'keys'     => $keys,
         ], $options));
 
         return $formBuilder;
@@ -210,11 +218,23 @@ class ObjectFieldProvider extends AbstractFieldProvider
 
     /**
      * @param Field $field
-     * @param ValueObject $value
+     * @return array
+     */
+    public function getFormOptions(Field $field)
+    {
+        $keys = $this->getKeysForObjectFormElement($field);
+
+        return [
+            'keys' => $keys
+        ];
+    }
+
+    /**
+     * @param Field $field
      * @return array
      * @throws \Exception
      */
-    private function getKeysForObjectFormElement(Field $field, ValueObject $value = null)
+    private function getKeysForObjectFormElement(Field $field)
     {
         /** @var Field[] $linkedFields */
         $fieldProviderRegistry = $this->fieldProviderRegistry;
@@ -224,18 +244,12 @@ class ObjectFieldProvider extends AbstractFieldProvider
         foreach ($linkedFields as $linkedField) {
             $linkedFieldProvider = $fieldProviderRegistry->get($linkedField->getType());
 
-            $name = $linkedField->getName();
-            $type = $linkedFieldProvider->getFormType();
+            $name     = $linkedField->getName();
+            $type     = $linkedFieldProvider->getFormType();
+            $required = $linkedField->getRequired();
+            $label    = $linkedField->getLabel() ?: $linkedField->getName();
 
-            $linkedData = null;
-            if ($value) {
-                $linkedValue = $this->getValueByInstanceField($value->getObject(), $linkedField);
-                $linkedData  = $linkedFieldProvider->getValueData($linkedValue);
-            }
-
-            $label = $linkedField->getLabel() ?: $linkedField->getName();
-
-            $keys[] = [$name, $type, ['data' => $linkedData, 'label' => $label]];
+            $keys[] = [$name, $type, ['label' => $label, 'required' => $required]];
         }
 
         return $keys;
@@ -310,7 +324,7 @@ class ObjectFieldProvider extends AbstractFieldProvider
      */
     public function getFormTab(Field $field)
     {
-        return 'Common';
+        return 'default';
     }
 
     /**
@@ -319,7 +333,7 @@ class ObjectFieldProvider extends AbstractFieldProvider
      */
     public function getFormGroup(Field $field)
     {
-        $fieldName = $field->getName();
+        $fieldName = $field->getLabel();
 
         return $fieldName;
     }
@@ -332,6 +346,6 @@ class ObjectFieldProvider extends AbstractFieldProvider
     {
         $label = $field->getLabel() ?: $field->getName();
 
-        return ['class' => 'col-md-4', 'name' => $label];
+        return ['class' => 'col-md-4', 'label' => $label];
     }
 }

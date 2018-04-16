@@ -174,7 +174,7 @@ class ImageCollectionFieldProvider extends AbstractMediaFieldProvider
     /**
      * @param AbstractValue  $value
      * @param ApiDataManager $apiDataManager
-     * @return bool
+     * @return array
      */
     public function getApiData(AbstractValue $value, ApiDataManager $apiDataManager)
     {

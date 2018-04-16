@@ -40,3 +40,12 @@ breadcrumb:
 tab:
     general: Class
     fields: Fields
+
+api_method:
+    list: List
+    view: View
+    create: Create
+    update: Update
+    delete: Delete
+
+help_text: 'Example: {name}, where "name" is system name of field'

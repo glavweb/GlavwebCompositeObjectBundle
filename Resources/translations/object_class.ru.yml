@@ -40,3 +40,12 @@ breadcrumb:
 tab:
     general: Класс
     fields: Поля
+
+api_method:
+    list: Список
+    view: Просмотр
+    create: Создание
+    update: Обновление
+    delete: Удаление
+
+help_text: 'Пример: {name}, где "name" системное имя поля'

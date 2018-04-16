@@ -241,25 +241,28 @@ class ObjectCollectionFieldProvider extends AbstractFieldProvider
         /** @var Field[] $linkedFields */
         $linkedFields = $field->getLinkedClass()->getFields();
 
+        $objectRepository = $this->doctrine->getRepository(ObjectInstance::class);
+        $objects = $objectRepository->findBy([
+            'valueObjectCollection' => $value
+        ]);
+
         $data = [];
-        if ($value) {
-            foreach ($value->getObjects() as $object) {
-                $linkedData = [];
+        foreach ($objects as $object) {
+            $linkedData = [];
 
-                $linkedData['id'] = $object->getId();
-                foreach ($linkedFields as $linkedField) {
-                    $linkedValue = $this->getValueByInstanceField($object, $linkedField);
+            $linkedData['id'] = $object->getId();
+            foreach ($linkedFields as $linkedField) {
+                $linkedValue = $this->getValueByInstanceField($object, $linkedField);
 
-                    if (!$linkedValue) {
-                        continue;
-                    }
-
-                    $linkedFieldProvider = $fieldProviderRegistry->get($linkedField->getType());
-                    $linkedData[$linkedField->getName()] = $linkedFieldProvider->getApiData($linkedValue, $apiDataManager);
+                if (!$linkedValue) {
+                    continue;
                 }
 
-                $data[] = $linkedData;
+                $linkedFieldProvider = $fieldProviderRegistry->get($linkedField->getType());
+                $linkedData[$linkedField->getName()] = $linkedFieldProvider->getApiData($linkedValue, $apiDataManager);
             }
+
+            $data[] = $linkedData;
         }
 
         return $data;
@@ -305,7 +308,7 @@ class ObjectCollectionFieldProvider extends AbstractFieldProvider
         $fieldsDefinition = [];
         foreach ($linkedFields as $linkedField) {
             $linkedFieldProvider = $fieldProviderRegistry->get($linkedField->getType());
-            $formOptions         = $linkedFieldProvider->getFormOptions($field);
+            $formOptions         = $linkedFieldProvider->getFormOptions($linkedField);
             $label = $linkedField->getLabel() ?: $linkedField->getName();
 
             $fieldsDefinition[] = [
@@ -338,6 +341,18 @@ class ObjectCollectionFieldProvider extends AbstractFieldProvider
         $label = $field->getLabel() ?: $field->getName();
 
         return $label;
+    }
+
+    /**
+     * @param Field $field
+     * @return array
+     */
+    public function getFormGroupOptions(Field $field)
+    {
+        return [
+            'class' => 'col-md-12 header-hidden',
+            'label' => ''
+        ];
     }
 
     /**

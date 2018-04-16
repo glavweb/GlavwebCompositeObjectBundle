@@ -27,6 +27,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Knp\Menu\ItemInterface as MenuItemInterface;
@@ -190,12 +191,6 @@ class ObjectInstanceAdmin extends AbstractObjectInstanceAdmin
             $objectInstance->setClass($class);
         }
 
-        $formMapper
-            ->tab('Common')
-                ->with('Common', ['class' => 'col-md-8', 'name' => $this->trans('tab.label_common')])->end()
-            ->end()
-        ;
-
         /** @var Field[] $fields */
         $fields = $objectInstance->getClass()->getFields();
         foreach ($fields as $field) {
@@ -203,6 +198,14 @@ class ObjectInstanceAdmin extends AbstractObjectInstanceAdmin
 
             $this->buildFormElement($formMapper, $field, $value);
         }
+
+        $colSize = count($this->getFormGroups()) > 1 ? 8 : 12;
+
+        $formMapper
+            ->tab('default', ['label' => 'tab.label_default'])
+                ->with('default', ['class' => 'col-md-' . $colSize . ' header-hidden', 'label' => ''])->end()
+            ->end()
+        ;
     }
 
     /**
@@ -219,7 +222,9 @@ class ObjectInstanceAdmin extends AbstractObjectInstanceAdmin
                 ->with($fieldProvider->getFormGroup($field), $fieldProvider->getFormGroupOptions($field))
                     ->add($fieldProvider->createFormBuilder($field, $value, [
                         'mapped' => false
-                    ]))
+                    ]), null, [], [
+                        'help' => $field->getHelp()
+                    ])
                 ->end()
             ->end()
         ;
@@ -292,7 +297,7 @@ class ObjectInstanceAdmin extends AbstractObjectInstanceAdmin
 
             $data[$fieldName] = $valueData;
         }
-
+        
         $objectManipulator = $this->getContainer()->get('glavweb_cms_composite_object.object_manipulator');
         $objectManipulator->saveObject($instance, $data);
 

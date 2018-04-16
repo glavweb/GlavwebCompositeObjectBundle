@@ -15,6 +15,7 @@ use Glavweb\CmsCoreBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Glavweb\CompositeObjectBundle\Entity\Field;
+use Sonata\CoreBundle\Form\Type\ImmutableArrayType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
@@ -60,23 +61,24 @@ class FieldAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        /** @var Field $field */
-//        $field = $this->getSubject();
-//        $container = $this->getConfigurationPool()->getContainer();
-
         $formMapper
-                ->add('name')
-                ->add('label')
-                ->add('type', null, [
-                    'choice_translation_domain' => $this->getTranslationDomain()
-                ])
-                ->add('linkedClass')
-                ->add('required')
-                ->add('denormalized')
-                ->add('isList')
-                ->add('isFilter')
-                ->add('plainPosition', HiddenType::class)
-//            ->add('options')
+            ->add('name')
+            ->add('label')
+            ->add('type', null, [
+                'choice_translation_domain' => $this->getTranslationDomain()
+            ])
+            ->add('linkedClass')
+            ->add('required')
+            ->add('denormalized')
+            ->add('isList')
+            ->add('isFilter')
+// Example for future:
+//                ->add('options', ImmutableArrayType::class, [
+//                    'keys' => [
+//                        ['option_1', 'text', ['required' => false]]
+//                    ],
+//                ])
+            ->add('position')
         ;
     }
 

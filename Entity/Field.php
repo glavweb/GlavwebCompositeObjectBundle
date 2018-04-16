@@ -16,7 +16,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Fresh\DoctrineEnumBundle\Validator\Constraints\Enum as EnumAssert;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Glavweb\RestBundle\Mapping\Annotation as RestExtra;
 
 /**
@@ -47,14 +46,8 @@ class Field
      * @var int
      *
      * @ORM\Column(name="position", type="integer", nullable=false, options={"comment": "Position is list"})
-     * @Gedmo\SortablePosition
      */
-    private $position = 0;
-
-    /**
-     * @var int
-     */
-    private $plainPosition;
+    private $position;
 
     /**
      * @var string
@@ -115,25 +108,31 @@ class Field
     private $isFilter = false;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="help", type="string", nullable=true, options={"comment": "Help text for field"})
+     */
+    private $help;
+
+    /**
      * Дополнительные опции к полю
      *
-     * @var bool
+     * @var array
      *
      * @ORM\Column(name="options", type="array", nullable=true, options={"comment": "Additional options"})
      */
     private $options = [];
 
     /**
-     * @var Object
+     * @var ObjectClass
      *
      * @ORM\ManyToOne(targetEntity="ObjectClass", inversedBy="fields")
      * @ORM\JoinColumn(name="class_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Gedmo\SortableGroup
      */
     private $class;
 
     /**
-     * @var Object
+     * @var ObjectClass
      *
      * @ORM\ManyToOne(targetEntity="ObjectClass", inversedBy="linkedFields")
      * @ORM\JoinColumn(name="linked_class_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
@@ -187,30 +186,6 @@ class Field
     public function getPosition()
     {
         return $this->position;
-    }
-
-    /**
-     * Set plain position
-     *
-     * @param integer $position
-     *
-     * @return Field
-     */
-    public function setPlainPosition($position)
-    {
-        $this->plainPosition = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get plain position
-     *
-     * @return integer
-     */
-    public function getPlainPosition()
-    {
-        return $this->plainPosition;
     }
 
     /**
@@ -399,6 +374,30 @@ class Field
     public function getIsFilter()
     {
         return $this->isFilter;
+    }
+
+    /**
+     * Get help
+     *
+     * @return string
+     */
+    public function getHelp()
+    {
+        return $this->help;
+    }
+
+    /**
+     * Set help
+     *
+     * @param string $help
+     *
+     * @return Field
+     */
+    public function setHelp($help)
+    {
+        $this->help = $help;
+
+        return $this;
     }
 
     /**

@@ -11,7 +11,7 @@ breadcrumb:
     link_object_instance_edit: Edit
 
 tab:
-    label_common: Common
+    label_default: Default
     label_recipients: Recipients
     label_update_objects_in_mongodb: Update objects for API
 

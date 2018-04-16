@@ -77,6 +77,14 @@ class ObjectApiController extends GlavwebRestController
         $sort       = (array)json_decode($paramFetcher->get('sort'), true);
         $filter     = (array)json_decode($paramFetcher->get('filter'), true);
 
+        $limit = $limit !== null ? (int)$limit : null;
+        $skip  = $skip !== null ? (int)$skip : null;
+
+        // hide mongodb ID and position
+        if (empty($projection) || current($projection) === 0) {
+            $projection = array_merge($projection, ['_id' => 0, '_position' => 0]);
+        }
+
         // default sort
         if (!isset($sort['_position'])) {
             $sort['_position'] = 1;
@@ -95,7 +103,7 @@ class ObjectApiController extends GlavwebRestController
         $collection = $mongodb->getDatabase()->$className;
 
         $data = $collection->find($filter, [
-            'projection' => array_merge($projection, ['_id' => 0, '_position' => 0]), // hide mongodb ID
+            'projection' => $projection,
             'sort'       => $sort,
             'limit'      => $limit,
             'skip'       => $skip

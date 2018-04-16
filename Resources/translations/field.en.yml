@@ -2,13 +2,14 @@ form:
     label_type: Type
     label_name: System name
     label_label: Label
+    label_help: Help
     label_required: Required
     label_denormalized: Denormalized.
     label_is_list: In list
     label_is_filter: In filter
     label_options: Options
     label_linked_class: Linked Class
-    label_plain_position: Position
+    label_position: Position
 
 composite_object_field_type:
     string: String

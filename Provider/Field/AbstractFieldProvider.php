@@ -204,7 +204,7 @@ abstract class AbstractFieldProvider implements FieldProviderInterface
      */
     public function getFormTab(Field $field)
     {
-        return 'Common';
+        return 'default';
     }
 
     /**
@@ -213,7 +213,7 @@ abstract class AbstractFieldProvider implements FieldProviderInterface
      */
     public function getFormGroup(Field $field)
     {
-        return 'Common';
+        return 'default';
     }
 
     /**
@@ -222,7 +222,9 @@ abstract class AbstractFieldProvider implements FieldProviderInterface
      */
     public function getFormGroupOptions(Field $field)
     {
-        return [];
+        return [
+            'label' => ''
+        ];
     }
 
     /**

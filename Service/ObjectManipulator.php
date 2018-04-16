@@ -17,6 +17,7 @@ use Glavweb\CompositeObjectBundle\Entity\ObjectInstance;
 use Glavweb\CompositeObjectBundle\Entity\Value\AbstractValue;
 use Glavweb\CompositeObjectBundle\Entity\Value\ValueLink;
 use Glavweb\CompositeObjectBundle\Entity\Value\ValueObject;
+use Glavweb\CompositeObjectBundle\Entity\Value\ValueObjectCollection;
 use Glavweb\CompositeObjectBundle\Provider\Field\FieldProviderRegistry;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityRepository;
@@ -94,6 +95,10 @@ class ObjectManipulator
         }
 
         $em->flush();
+
+        if (($valueObjectCollection = $objectInstance->getValueObjectCollection()) instanceof ValueObjectCollection) {
+            $this->saveInMongoDB($valueObjectCollection->getInstance());
+        }
 
         $this->saveInMongoDB($objectInstance);
         $this->updateLinkedValuesInMongoDB($objectInstance);
@@ -292,6 +297,7 @@ class ObjectManipulator
     private function updateValue(AbstractValue $value, $data)
     {
         $fieldProvider = $this->fieldProviderRegistry->get($value->getField()->getType());
+
         $fieldProvider->updateValue($value, $data, $this);
     }
 
@@ -314,7 +320,7 @@ class ObjectManipulator
         ]);
 
         if (!$field) {
-            throw new \Exception('Field is not found.');
+            throw new \Exception(sprintf('Field not found by class "%s" and name "%s".', $class->getName(), $name));
         }
 
         return $field;
