@@ -32,6 +32,12 @@ services:
         tags:
             - {name: glavweb_cms_composite_object.field_provider, field_type: text}
             
+    glavweb_cms_composite_object.wysiwyg_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\WysiwygFieldProvider
+        arguments: [ "@form.factory" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: wysiwyg}
+
     glavweb_cms_composite_object.integer_field_provider:
         class: Glavweb\CompositeObjectBundle\Provider\Field\IntegerFieldProvider
         arguments: [ "@form.factory" ]

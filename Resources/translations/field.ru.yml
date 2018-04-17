@@ -14,6 +14,7 @@ form:
 composite_object_field_type:
     string: Строка
     text: Текст
+    wysiwyg: WYSIWYG
     integer: Число
     boolean: Логический тип
     image: Изображение

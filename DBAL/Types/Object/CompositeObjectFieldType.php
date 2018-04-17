@@ -23,6 +23,7 @@ class CompositeObjectFieldType extends AbstractEnumType
 {
     const STRING            = 'string';
     const TEXT              = 'text';
+    const WYSIWYG           = 'wysiwyg';
     const INTEGER           = 'integer';
     const BOOLEAN           = 'boolean';
     const IMAGE             = 'image';
@@ -40,6 +41,7 @@ class CompositeObjectFieldType extends AbstractEnumType
     protected static $choices = array(
         self::STRING            => 'composite_object_field_type.string',
         self::TEXT              => 'composite_object_field_type.text',
+        self::WYSIWYG           => 'composite_object_field_type.wysiwyg',
         self::INTEGER           => 'composite_object_field_type.integer',
         self::BOOLEAN           => 'composite_object_field_type.boolean',
         self::IMAGE             => 'composite_object_field_type.image',

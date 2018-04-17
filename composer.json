@@ -21,7 +21,8 @@
         "sonata-project/admin-bundle": "^3.1",
         "sonata-project/block-bundle": "^3.2",
         "liip/imagine-bundle": "~1.5",
-        "glavweb/cms-core-bundle": "~0.1"
+        "egeloen/ckeditor-bundle": "^6.0",
+        "glavweb/cms-core-bundle": "^0.2"
     },
     "autoload": {
         "psr-4": { "Glavweb\\CompositeObjectBundle\\": "" }
