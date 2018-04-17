@@ -176,7 +176,7 @@ class VideoFieldProvider extends AbstractMediaFieldProvider
         $mediaStructure = $this->mediaStructure;
 
         $media = $this->getValueData($value);
-        $data = $media ? current($mediaStructure->getStructure([$media])) : [];
+        $data = $media ? current($mediaStructure->getStructure([$media], null, false, true)) : [];
 
         return $data;
     }

@@ -184,7 +184,7 @@ class VideoCollectionFieldProvider extends AbstractMediaFieldProvider
 
         /** @var ArrayCollection $medias */
         $medias = $this->getValueData($value);
-        $data = $medias ? $mediaStructure->getStructure($medias->toArray()) : [];
+        $data = $medias ? $mediaStructure->getStructure($medias->toArray(), null, false, true) : [];
 
         return $data;
     }

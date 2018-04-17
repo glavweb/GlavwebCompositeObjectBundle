@@ -170,7 +170,7 @@ class ImageFieldProvider extends AbstractMediaFieldProvider
         $thumbnailImagineFilter = $this->getThumbnailImagineFilter($value->getField());
 
         $media = $this->getValueData($value);
-        $data = $media ? current($mediaStructure->getStructure([$media], $thumbnailImagineFilter)) : [];
+        $data = $media ? current($mediaStructure->getStructure([$media], $thumbnailImagineFilter, false, true)) : [];
 
         return $data;
     }

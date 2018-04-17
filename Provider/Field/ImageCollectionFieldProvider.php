@@ -183,7 +183,7 @@ class ImageCollectionFieldProvider extends AbstractMediaFieldProvider
 
         /** @var ArrayCollection $medias */
         $medias   = $this->getValueData($value);
-        $data = $medias ? $mediaStructure->getStructure($medias->toArray(), $thumbnailImagineFilter) : [];
+        $data = $medias ? $mediaStructure->getStructure($medias->toArray(), $thumbnailImagineFilter, false, true) : [];
 
         return $data;
     }
