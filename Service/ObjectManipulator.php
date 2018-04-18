@@ -80,6 +80,10 @@ class ObjectManipulator
     {
         $em = $this->doctrine->getManager();
 
+        if (!$objectInstance->getId()) {
+            $em->persist($objectInstance);
+        }
+        
         $objectClass = $objectInstance->getClass();
 
         foreach ($data as $valueName => $valueData) {
