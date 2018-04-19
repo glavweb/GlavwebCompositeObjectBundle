@@ -13,6 +13,7 @@ namespace Glavweb\CompositeObjectBundle\Admin;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
+use Glavweb\CompositeObjectBundle\CompositeObjectEvents;
 use Glavweb\CompositeObjectBundle\Entity\Field;
 use Glavweb\CompositeObjectBundle\Entity\ObjectInstance;
 use Glavweb\CompositeObjectBundle\Entity\Value\AbstractValue;
@@ -21,15 +22,19 @@ use Glavweb\CompositeObjectBundle\Entity\Value\ValueInteger;
 use Glavweb\CompositeObjectBundle\Entity\Value\ValueString;
 use Glavweb\CompositeObjectBundle\Entity\Value\ValueText;
 use Doctrine\ORM\QueryBuilder;
+use Glavweb\CompositeObjectBundle\Event\PostPersistEvent;
+use Glavweb\CompositeObjectBundle\Event\PostRemoveEvent;
+use Glavweb\CompositeObjectBundle\Event\PostUpdateEvent;
+use Glavweb\CompositeObjectBundle\Event\PrePersistEvent;
+use Glavweb\CompositeObjectBundle\Event\PreRemoveEvent;
+use Glavweb\CompositeObjectBundle\Event\PreUpdateEvent;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
 
@@ -54,6 +59,7 @@ class ObjectInstanceAdmin extends AbstractObjectInstanceAdmin
      * @var string
      */
     protected $baseRouteName = 'composite_object_instance';
+    private $instanceData;
 
     /**
      * @param RouteCollection $collection
@@ -278,39 +284,76 @@ class ObjectInstanceAdmin extends AbstractObjectInstanceAdmin
     }
 
     /**
-     * @param ObjectInstance $instance
+     * @param mixed $entity
      */
-    protected function updateEntity($instance)
+    public function prePersist($entity)
     {
-        if (!$this->getRequest()->isMethod('POST')) {
-            return;
+        $this->preUpdateEntity($entity, true);
+    }
+
+    /**
+     * @param mixed $entity
+     */
+    public function preUpdate($entity)
+    {
+        $this->preUpdateEntity($entity, false);
+    }
+
+    /**
+     * @param mixed $entity
+     */
+    public function postPersist($entity)
+    {
+        if (!$entity instanceof ObjectInstance) {
+            throw new \RuntimeException('The $object must be ObjectInstance.');
         }
 
-        $instance->setUpdatedAt(new \DateTime());
+        $event = new PostPersistEvent($entity, $this->instanceData); // $instanceData define in preUpdateEntity()
+        $this->getEventDispatcher()->dispatch(CompositeObjectEvents::POST_PERSIST, $event);
 
-        /** @var FormInterface[] $elements */
-        $data = [];
-        $elements = $this->getForm()->all();
-        foreach ($elements as $element) {
-            $fieldName = $element->getName();
-            $valueData = $element->getData();
+    }
 
-            $data[$fieldName] = $valueData;
+    /**
+     * @param mixed $entity
+     */
+    public function postUpdate($entity)
+    {
+        if (!$entity instanceof ObjectInstance) {
+            throw new \RuntimeException('The $object must be ObjectInstance.');
         }
-        
-        $objectManipulator = $this->getContainer()->get('glavweb_cms_composite_object.object_manipulator');
-        $objectManipulator->saveObject($instance, $data);
 
-        return ;
+        $event = new PostUpdateEvent($entity, $this->instanceData); // $instanceData define in preUpdateEntity()
+        $this->getEventDispatcher()->dispatch(CompositeObjectEvents::POST_UPDATE, $event);
+
     }
 
     /**
      * {@inheritdoc}
      */
-    public function preRemove($object)
+    public function preRemove($entity)
     {
+        if (!$entity instanceof ObjectInstance) {
+            throw new \RuntimeException('The $object must be ObjectInstance.');
+        }
+
         $objectManipulator = $this->getContainer()->get('glavweb_cms_composite_object.object_manipulator');
-        $objectManipulator->deleteObject($object);
+        $objectManipulator->deleteObject($entity);
+
+        $event = new PreRemoveEvent($entity);
+        $this->getEventDispatcher()->dispatch(CompositeObjectEvents::PRE_REMOVE, $event);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function postRemove($entity)
+    {
+        if (!$entity instanceof ObjectInstance) {
+            throw new \RuntimeException('The $object must be ObjectInstance.');
+        }
+
+        $event = new PostRemoveEvent($entity);
+        $this->getEventDispatcher()->dispatch(CompositeObjectEvents::POST_REMOVE, $event);
     }
 
     /**
@@ -336,6 +379,47 @@ class ObjectInstanceAdmin extends AbstractObjectInstanceAdmin
             // Waiting approving https://github.com/sonata-project/SonataAdminBundle/pull/4659
             // $idx = []; // avoiding duplicate deleting
         }
+    }
+
+    /**
+     * @param ObjectInstance $instance
+     * @param bool $persist
+     */
+    protected function preUpdateEntity($instance, $persist)
+    {
+        if (!$this->getRequest()->isMethod('POST')) {
+            return;
+        }
+
+        $instance->setUpdatedAt(new \DateTime());
+
+        /** @var FormInterface[] $elements */
+        $data = [];
+        $elements = $this->getForm()->all();
+        foreach ($elements as $element) {
+            $fieldName = $element->getName();
+            $valueData = $element->getData();
+
+            $data[$fieldName] = $valueData;
+        }
+
+        $objectManipulator = $this->getContainer()->get('glavweb_cms_composite_object.object_manipulator');
+        $objectManipulator->saveObject($instance, $data);
+
+        $this->instanceData = $data;
+
+        $dispatcher = $this->getEventDispatcher();
+
+        if ($persist) {
+            $event = new PrePersistEvent($instance, $data);
+            $dispatcher->dispatch(CompositeObjectEvents::PRE_PERSIST, $event);
+
+        } else {
+            $event = new PreUpdateEvent($instance, $data);
+            $dispatcher->dispatch(CompositeObjectEvents::PRE_UPDATE, $event);
+        }
+
+        return ;
     }
 
     /**
@@ -462,5 +546,14 @@ class ObjectInstanceAdmin extends AbstractObjectInstanceAdmin
             ->setParameter('field_' . $uniqid, $fieldId)
             ->setParameter('value_' . $uniqid, $valueData)
         ;
+    }
+
+    /**
+     * @return object|\Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher|\Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher
+     */
+    protected function getEventDispatcher()
+    {
+        $dispatcher = $this->getContainer()->get('event_dispatcher');
+        return $dispatcher;
     }
 }

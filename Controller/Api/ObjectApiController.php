@@ -11,11 +11,18 @@
 
 namespace Glavweb\CompositeObjectBundle\Controller\Api;
 
+use Glavweb\CompositeObjectBundle\CompositeObjectEvents;
 use Glavweb\CompositeObjectBundle\Entity\Field;
 use Glavweb\CompositeObjectBundle\Entity\NotificationRecipient;
 use Glavweb\CompositeObjectBundle\Entity\ObjectClass;
 use Glavweb\CompositeObjectBundle\Entity\Value\AbstractValue;
 use Doctrine\ORM\EntityRepository;
+use Glavweb\CompositeObjectBundle\Event\PostPersistEvent;
+use Glavweb\CompositeObjectBundle\Event\PostRemoveEvent;
+use Glavweb\CompositeObjectBundle\Event\PostUpdateEvent;
+use Glavweb\CompositeObjectBundle\Event\PrePersistEvent;
+use Glavweb\CompositeObjectBundle\Event\PreRemoveEvent;
+use Glavweb\CompositeObjectBundle\Event\PreUpdateEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -187,12 +194,18 @@ class ObjectApiController extends GlavwebRestController
         $form->submit($requestData);
 
         if ($form->isValid()) {
+            $dispatcher = $this->get('event_dispatcher');
+
             $data = $this->getFormData($form);
 
-            // Save data
             $instance = new ObjectInstance();
             $instance->setClass($class);
 
+            // Dispatch pre persist
+            $event = new PrePersistEvent($instance, $data);
+            $dispatcher->dispatch(CompositeObjectEvents::PRE_PERSIST, $event);
+
+            // Save data
             $objectManipulator = $this->get('glavweb_cms_composite_object.object_manipulator');
             $objectManipulator->saveObject($instance, $data);
 
@@ -200,6 +213,10 @@ class ObjectApiController extends GlavwebRestController
             if ($class->getNotificationEnabled()) {
                 $this->sendNotificationMessage($instance);
             }
+
+            // Dispatch post persist
+            $event = new PostPersistEvent($instance, $data);
+            $dispatcher->dispatch(CompositeObjectEvents::POST_PERSIST, $event);
 
             // Render result
             $view     = new View();
@@ -269,11 +286,21 @@ class ObjectApiController extends GlavwebRestController
         $form->submit($requestData);
 
         if ($form->isValid()) {
+            $dispatcher = $this->get('event_dispatcher');
+
             $data = $this->getFormData($form);
+
+            // Dispatch pre update
+            $event = new PreUpdateEvent($object, $data);
+            $dispatcher->dispatch(CompositeObjectEvents::PRE_UPDATE, $event);
 
             // Save data
             $objectManipulator = $this->get('glavweb_cms_composite_object.object_manipulator');
             $objectManipulator->saveObject($object, $data);
+
+            // Dispatch post update
+            $event = new PostUpdateEvent($object, $data);
+            $dispatcher->dispatch(CompositeObjectEvents::POST_UPDATE, $event);
 
             // Render result
             $view     = new View();
@@ -316,8 +343,18 @@ class ObjectApiController extends GlavwebRestController
         // Check allow method
         $this->checkAllowMethod($object->getClass(), 'delete');
 
+        $dispatcher = $this->get('event_dispatcher');
+
+        // Dispatch pre remove
+        $event = new PreRemoveEvent($object);
+        $dispatcher->dispatch(CompositeObjectEvents::PRE_REMOVE, $event);
+
         $objectManipulator = $this->get('glavweb_cms_composite_object.object_manipulator');
         $objectManipulator->deleteObject($object);
+
+        // Dispatch post remove
+        $event = new PostRemoveEvent($object);
+        $dispatcher->dispatch(CompositeObjectEvents::POST_REMOVE, $event);
 
         return new Response('', 204);
     }
