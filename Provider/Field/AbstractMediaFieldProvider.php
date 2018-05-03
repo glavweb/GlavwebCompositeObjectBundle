@@ -72,7 +72,7 @@ abstract class AbstractMediaFieldProvider extends AbstractFieldProvider
      * @return Media[]
      * @throws \Exception
      */
-    protected function handleUpload($requestId)
+    protected function handleUpload(string $requestId)
     {
         if (!$this->uploaderManager instanceof UploaderManager) {
             throw new \Exception('Uploader manager is not defined.');

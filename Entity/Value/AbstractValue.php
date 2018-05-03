@@ -34,6 +34,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "image_collection"  = "ValueImageCollection",
  *     "video"             = "ValueVideo",
  *     "video_collection"  = "ValueVideoCollection",
+ *     "file"              = "ValueFile",
  *     "object"            = "ValueObject",
  *     "object_collection" = "ValueObjectCollection",
  *     "link"              = "ValueLink"

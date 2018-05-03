@@ -73,7 +73,13 @@ services:
         arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure", "%liip_imagine.filter_sets%" ]
         tags:
             - {name: glavweb_cms_composite_object.field_provider, field_type: video_collection}
-            
+
+    glavweb_cms_composite_object.file_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\FileFieldProvider
+        arguments: [ "@form.factory", "@router.default", "@glavweb_uploader.uploader_manager", "@glavweb_uploader.util.media_structure" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: file}
+
     glavweb_cms_composite_object.object_field_provider:
         class: Glavweb\CompositeObjectBundle\Provider\Field\ObjectFieldProvider
         arguments: [ "@form.factory", "@doctrine", "@glavweb_cms_composite_object.field_provider_registry" ]
