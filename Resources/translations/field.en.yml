@@ -16,6 +16,7 @@ composite_object_field_type:
     text: Text
     wysiwyg: WYSIWYG
     integer: Integer
+    float: Float
     boolean: Boolean
     image: Image
     image_collection: Image Collection

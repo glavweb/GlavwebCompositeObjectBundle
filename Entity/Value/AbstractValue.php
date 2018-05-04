@@ -29,6 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "string"            = "ValueString",
  *     "text"              = "ValueText",
  *     "integer"           = "ValueInteger",
+ *     "float"             = "ValueFloat",
  *     "boolean"           = "ValueBoolean",
  *     "image"             = "ValueImage",
  *     "image_collection"  = "ValueImageCollection",

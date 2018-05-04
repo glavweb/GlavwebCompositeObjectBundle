@@ -16,6 +16,7 @@ composite_object_field_type:
     text: Текст
     wysiwyg: WYSIWYG
     integer: Число
+    float: Дробное число
     boolean: Логический тип
     image: Изображение
     image_collection: Коллекция изображений

@@ -25,6 +25,7 @@ class CompositeObjectFieldType extends AbstractEnumType
     const TEXT              = 'text';
     const WYSIWYG           = 'wysiwyg';
     const INTEGER           = 'integer';
+    const FLOAT             = 'float';
     const BOOLEAN           = 'boolean';
     const IMAGE             = 'image';
     const IMAGE_COLLECTION  = 'image_collection';
@@ -43,6 +44,7 @@ class CompositeObjectFieldType extends AbstractEnumType
         self::TEXT              => 'composite_object_field_type.text',
         self::WYSIWYG           => 'composite_object_field_type.wysiwyg',
         self::INTEGER           => 'composite_object_field_type.integer',
+        self::FLOAT             => 'composite_object_field_type.float',
         self::BOOLEAN           => 'composite_object_field_type.boolean',
         self::IMAGE             => 'composite_object_field_type.image',
         self::IMAGE_COLLECTION  => 'composite_object_field_type.image_collection',

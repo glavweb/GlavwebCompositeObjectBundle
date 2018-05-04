@@ -44,6 +44,12 @@ services:
         tags:
             - {name: glavweb_cms_composite_object.field_provider, field_type: integer}
             
+    glavweb_cms_composite_object.float_field_provider:
+        class: Glavweb\CompositeObjectBundle\Provider\Field\FloatFieldProvider
+        arguments: [ "@form.factory" ]
+        tags:
+            - {name: glavweb_cms_composite_object.field_provider, field_type: float}
+            
     glavweb_cms_composite_object.boolean_field_provider:
         class: Glavweb\CompositeObjectBundle\Provider\Field\BooleanFieldProvider
         arguments: [ "@form.factory" ]
