@@ -59,6 +59,10 @@ class ObjectInstanceAdmin extends AbstractObjectInstanceAdmin
      * @var string
      */
     protected $baseRouteName = 'composite_object_instance';
+
+    /**
+     * @var array
+     */
     private $instanceData;
 
     /**

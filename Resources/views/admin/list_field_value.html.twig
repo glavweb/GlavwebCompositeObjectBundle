@@ -4,5 +4,9 @@
 {% set value = admin.getValueByInstanceField(object, field) %}
 
 {% block field %}
-    {{ admin.toStringValueData(value) }}
+    {% if value is not null %}
+        {{ admin.toStringValueData(value) }}
+    {% else %}
+        -
+    {% endif %}
 {% endblock %}
